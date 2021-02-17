@@ -43,7 +43,7 @@ namespace Fichas.Controllers
         public async Task<IActionResult> Ficha(int cod_responsavel, int cod_acampante)
         {
             Ficha F = new Ficha();
-            var soaPessoa = await _SOAContext.Tb_Cad_Pessoa.ToListAsync();
+            var soaPessoa = await _SOAContext.Tb_Cad_Pessoa.ToListAsync(); //teste
             Acampante acamp = new Acampante();
             Responsavel resp = new Responsavel();
             acamp.codPessoa = cod_acampante;
