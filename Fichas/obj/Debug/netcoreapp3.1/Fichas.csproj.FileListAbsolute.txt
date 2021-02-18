@@ -97,3 +97,5 @@ C:\Users\leuel\source\repos\Fichas\Fichas\bin\Debug\netcoreapp3.1\runtimes\win-x
 C:\Users\leuel\source\repos\Fichas\Fichas\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\leuel\source\repos\Fichas\Fichas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\leuel\source\repos\Fichas\Fichas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\leuel\source\repos\Fichas\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs
+C:\Users\leuel\source\repos\Fichas\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Home\Success.cshtml.g.cs

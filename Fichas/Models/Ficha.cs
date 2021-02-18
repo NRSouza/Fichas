@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,9 @@ namespace Fichas.Models
         public Guid ID { get; set; } 
         public Responsavel Responsavel { get; set; }
         public Acampante Acampante { get; set; }
+        [Required]
         public Double Peso { get; set; }
+        [Required]
         public Double Altura { get; set; }
         public string Tip_Sanguineo { get; set; }
         public string Convenio { get; set; }
@@ -43,8 +46,10 @@ namespace Fichas.Models
         public bool Sonambulismo { get; set; }
         public bool RestricaoAttFisica { get; set; }
         public string Obs_RestricaoAttFisica { get; set; }
+        [Required]
         public bool Alergia_Medicamento { get; set; }
         public string Obs_Alergia_Medicamento { get; set; }
+        [Required]
         public bool Necessidade_Especial { get; set; }
         public string Obs_Necessidade_Especial { get; set; }
         public bool Restricao_Alimentar { get; set; }

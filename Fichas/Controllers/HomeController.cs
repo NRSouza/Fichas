@@ -40,10 +40,10 @@ namespace Fichas.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> Ficha(int cod_responsavel, int cod_acampante)
+        public IActionResult Ficha(int cod_responsavel, int cod_acampante)
         {
             Ficha F = new Ficha();
-            var soaPessoa = await _SOAContext.Tb_Cad_Pessoa.ToListAsync(); //teste
+            //var soaPessoa = await _SOAContext.Tb_Cad_Pessoa.ToListAsync(); //teste
             Acampante acamp = new Acampante();
             Responsavel resp = new Responsavel();
             acamp.codPessoa = cod_acampante;
@@ -59,11 +59,30 @@ namespace Fichas.Controllers
         [HttpPost]
         public async Task<IActionResult> Ficha(Ficha Ficha)
         {
+            string ViewResult;
+            Acampante acamp = new Acampante();
+            Responsavel resp = new Responsavel();
+            resp.Nome = "NOME RESPONSAVEL";
+            acamp.Nome = "NOME ACAMPANTE";
 
-            _context.Ficha.Add(Ficha);
-            await _context.SaveChangesAsync();
+            ViewBag.resp = resp;
+            ViewBag.acamp = acamp;
+            try
+            {
+                _context.Ficha.Add(Ficha);
+                await _context.SaveChangesAsync();
+                ViewResult = "Success";
 
-            return View();
+            }
+            catch (Exception e)
+            {
+                string Message = e.Message;
+                ViewBag.erro = Message;
+                ViewResult = "Error";
+
+            }
+
+            return View(ViewResult);
         }
 
         public IActionResult Privacy()
