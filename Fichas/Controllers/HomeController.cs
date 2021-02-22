@@ -7,19 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Fichas.Models;
 using Microsoft.EntityFrameworkCore;
-
+using Fichas.SoaContext;
 
 namespace Fichas.Controllers
 {
     public class HomeController : Controller
     {
         private readonly Data.ApplicationDbContext _context;
-        private readonly ModelsSoa.SOAContext _SOAContext;
+        private readonly DB_PRD_NRContext _SOAContext;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger,
             Data.ApplicationDbContext context,
-            ModelsSoa.SOAContext SOAContext)
+            DB_PRD_NRContext SOAContext)
         {
             _context = context;
             _SOAContext = SOAContext;
@@ -40,10 +40,10 @@ namespace Fichas.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Ficha(int cod_responsavel, int cod_acampante)
+        public async Task<IActionResult> Ficha(int cod_responsavel, int cod_acampante)
         {
             Ficha F = new Ficha();
-            //var soaPessoa = await _SOAContext.Tb_Cad_Pessoa.ToListAsync(); //teste
+            var soaPessoa = await _SOAContext.TbCadPessoa.ToListAsync(); //teste
             Acampante acamp = new Acampante();
             Responsavel resp = new Responsavel();
             acamp.codPessoa = cod_acampante;

@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Fichas.SoaContext;
+using Fichas.Data;
 
 namespace Fichas
 {
@@ -25,9 +27,9 @@ namespace Fichas
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<Fichas.Data.ApplicationDbContext>(options => options.UseSqlServer
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer
             (Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<Fichas.ModelsSoa.SOAContext>(options =>
+            services.AddDbContext<DB_PRD_NRContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("SOAConnection")));
         }
