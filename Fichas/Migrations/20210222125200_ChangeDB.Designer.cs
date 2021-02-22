@@ -4,14 +4,16 @@ using Fichas.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fichas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210222125200_ChangeDB")]
+    partial class ChangeDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,8 +36,8 @@ namespace Fichas.Migrations
                     b.Property<Guid?>("ResponsavelID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("codAcampante")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("codAcampante")
+                        .HasColumnType("int");
 
                     b.Property<int>("codPessoa")
                         .HasColumnType("int");
@@ -202,6 +204,9 @@ namespace Fichas.Migrations
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("FichaRespondida")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");

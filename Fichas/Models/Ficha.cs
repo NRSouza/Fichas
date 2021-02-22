@@ -8,7 +8,6 @@ namespace Fichas.Models
 {
     public class Ficha : Entity
     {
-        public Guid ID { get; set; } 
         public Responsavel Responsavel { get; set; }
         public Acampante Acampante { get; set; }
         [Required]

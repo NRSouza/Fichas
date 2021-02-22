@@ -40,49 +40,91 @@ namespace Fichas.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> Ficha(int cod_responsavel, int cod_acampante)
+        public async Task<IActionResult> Ficha(int CodResponsavel = 405808,
+            int CodAcampante = 410749)
         {
             Ficha F = new Ficha();
-            var soaPessoa = await _SOAContext.TbCadPessoa.ToListAsync(); //teste
-            Acampante acamp = new Acampante();
-            Responsavel resp = new Responsavel();
-            acamp.codPessoa = cod_acampante;
-            resp.codResponsavel = cod_responsavel;
-            resp.Nome = "NOME RESPONSAVEL";
-            acamp.Nome = "NOME ACAMPANTE";
 
-            ViewBag.resp = resp;
-            ViewBag.acamp = acamp;
+            //CHECA SE A PESSOA JA POSSUI FICHA
+            Responsavel R = await _context.Responsavel.Where(e=>e.codResponsavel == CodResponsavel).FirstOrDefaultAsync();
+            Acampante A = await _context.Acampante.Where(e=>e.codPessoa == CodAcampante).FirstOrDefaultAsync();
+            var SoaResp = await _SOAContext.TbCadPessoa.Where(e => e.CodPessoa == CodResponsavel).FirstOrDefaultAsync();
+            var SoaAcamp = await _SOAContext.TbCadPessoa.Where(e => e.CodPessoa == CodAcampante).FirstOrDefaultAsync();
+            var SoaCodAcamp = await _SOAContext.TbCadPessoaidacampante.Where(e => e.CodPessoa == CodAcampante).FirstOrDefaultAsync();
+            //se o responsavel NAO EXISTE consequentemente o Acampante também não existe
+            if (R == null)
+            {
+                //Cria o Responsavel e o Acampante
+                Responsavel resp = new Responsavel();
+                resp.codResponsavel = CodResponsavel;
+                resp.Nome = SoaResp.NomPessoa;
+
+                Acampante acamp = new Acampante();
+                acamp.codPessoa = CodAcampante;
+                acamp.Nome = SoaAcamp.NomPessoa;
+                acamp.codAcampante = SoaCodAcamp == null ? null : SoaCodAcamp.CodPessoaidacampante.ToString();
+
+                if (SoaCodAcamp == null)
+                {
+                    acamp.codAcampante = null;
+                }
+                else
+                {
+                    acamp.codAcampante = SoaCodAcamp.CodPessoaidacampante.ToString();
+                }
+                acamp.Responsavel = resp;
+                
+                F.Responsavel = resp;
+                F.Acampante = acamp;
+                
+                _context.Responsavel.Add(resp);
+                _context.Acampante.Add(acamp);
+                _context.Ficha.Add(F);
+                await _context.SaveChangesAsync();
+
+                ViewBag.resp = resp;
+                ViewBag.acamp = acamp;
+            }
+            else
+            {
+                //se o responsavel foi criado ele possui um acampante
+                Acampante acamp = await _context.Acampante.Where(e => e.Responsavel == R && e.codPessoa == CodAcampante).FirstOrDefaultAsync();
+                //caso se trate de um segundo acampante, cria-lo
+                if(acamp == null)
+                {
+                    Acampante NovoAcamp = new Acampante();
+                    NovoAcamp.codPessoa = CodAcampante;
+                    NovoAcamp.Nome = SoaAcamp.NomPessoa;
+                    NovoAcamp.codAcampante = SoaCodAcamp == null ? null : SoaCodAcamp.CodPessoaidacampante.ToString();
+                    NovoAcamp.Responsavel = R;
+                    F.Responsavel = R;
+                    F.Acampante = NovoAcamp;
+
+                    _context.Acampante.Add(NovoAcamp);
+                    _context.Ficha.Add(F);
+                    ViewBag.resp = R;
+                    ViewBag.acamp = NovoAcamp;
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    F = await _context.Ficha.Where(e => e.Acampante == acamp).FirstOrDefaultAsync();
+                    ViewBag.resp = R;
+                    ViewBag.acamp = acamp;
+                }
+            }
 
             return View(F);
         }
         [HttpPost]
         public async Task<IActionResult> Ficha(Ficha Ficha)
         {
-            string ViewResult;
-            Acampante acamp = new Acampante();
-            Responsavel resp = new Responsavel();
-            resp.Nome = "NOME RESPONSAVEL";
-            acamp.Nome = "NOME ACAMPANTE";
 
-            ViewBag.resp = resp;
-            ViewBag.acamp = acamp;
-            try
-            {
-                _context.Ficha.Add(Ficha);
-                await _context.SaveChangesAsync();
-                ViewResult = "Success";
 
-            }
-            catch (Exception e)
-            {
-                string Message = e.Message;
-                ViewBag.erro = Message;
-                ViewResult = "Error";
-
-            }
-
-            return View(ViewResult);
+            _context.Ficha.Update(Ficha);
+            await _context.SaveChangesAsync();  
+            
+            return View(Ficha);
         }
 
         public IActionResult Privacy()

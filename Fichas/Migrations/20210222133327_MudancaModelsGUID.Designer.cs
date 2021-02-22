@@ -4,14 +4,16 @@ using Fichas.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fichas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210222133327_MudancaModelsGUID")]
+    partial class MudancaModelsGUID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,8 +36,8 @@ namespace Fichas.Migrations
                     b.Property<Guid?>("ResponsavelID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("codAcampante")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("codAcampante")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("codPessoa")
                         .HasColumnType("int");
