@@ -79,7 +79,6 @@ namespace Fichas.Controllers
                 
                 _context.Responsavel.Add(resp);
                 _context.Acampante.Add(acamp);
-                _context.Ficha.Add(F);
                 await _context.SaveChangesAsync();
 
                 ViewBag.resp = resp;
@@ -101,7 +100,6 @@ namespace Fichas.Controllers
                     F.Acampante = NovoAcamp;
 
                     _context.Acampante.Add(NovoAcamp);
-                    _context.Ficha.Add(F);
                     ViewBag.resp = R;
                     ViewBag.acamp = NovoAcamp;
                     await _context.SaveChangesAsync();
@@ -117,16 +115,33 @@ namespace Fichas.Controllers
             return View(F);
         }
         [HttpPost]
-        public async Task<IActionResult> Ficha(Ficha Ficha)
+        public async Task<IActionResult> Ficha(Ficha Ficha,string respID ,string acampID)
         {
-
-
-            _context.Ficha.Update(Ficha);
-            await _context.SaveChangesAsync();  
+            //verifica se o acampante é dependente desse responsavel
+            Acampante acamp = await _context.Acampante.Where(e => e.ID.ToString() == acampID).FirstOrDefaultAsync();
+            Responsavel resp = await _context.Responsavel.Where(e => e.ID.ToString() == respID).FirstOrDefaultAsync();
+            ViewBag.resp = resp;
+            ViewBag.acamp = acamp;
+            if(Ficha.ID == null)
+            {
+                if (acamp.Responsavel.ID == resp.ID)
+                {
+                    Ficha.Responsavel = resp;
+                    Ficha.Acampante = acamp;
+                    Ficha.Acampante.FichaRespondida = true;
+                    ViewBag.CadOk = "Ficha adastrada com Sucesso!";
+                    _context.Ficha.Add(Ficha);
+                }
+                else{ 
+                    ViewBag.Error = "Houve um erro ao processar sua solicitação tente novamente.";
+                }
+            }else {
+                _context.Ficha.Update(Ficha);
+            }
             
+            await _context.SaveChangesAsync();     
             return View(Ficha);
         }
-
         public IActionResult Privacy()
         {
             return View();

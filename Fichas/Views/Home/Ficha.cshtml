@@ -232,6 +232,14 @@
                     @Html.TextBoxFor(e => e.Orientacao_Colica, new { @class = "form-control" })
                 </div>
             </div>
+            <div class="row" style="display:none">
+                <div class="form-group col-md-6">
+                    <input type="text" name="acampID" id="acampID" value="@ViewBag.acamp.ID" />
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" name="respID" id="respID" value="@ViewBag.resp.ID" />
+                </div>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Finalizar" class="btn btn-primary" />
             </div>
