@@ -13,223 +13,263 @@
             <h5>@ViewBag.erro</h5>
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Peso</label>
-                    @Html.EditorFor(e => e.Peso, new { htmlAttributes = new { @class = "form-control" } })
+                    <label class="col-form-label-lg">Peso do acampante(kg)</label>
+                    @Html.EditorFor(e => e.Peso, new { htmlAttributes = new { @class = "form-control", @placeholder = "(kg)" } })
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Altura</label>
-                    @Html.EditorFor(e => e.Altura, new { htmlAttributes = new { @class = "form-control" } })
+                    <label class="col-form-label-lg">Altura do acampante</label>
+                    @Html.EditorFor(e => e.Altura,  new { htmlAttributes = new { @class = "form-control", @placeholder = "(m)" } })
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Tipo Sanguíneo</label>
-                    @Html.TextBoxFor(e => e.Tip_Sanguineo, new { @class = "form-control" })
+                    @Html.TextAreaFor(e => e.Tip_Sanguineo, new { @class = "form-control" })
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Convenio - Numero da carteirinha</label>
-                    @Html.TextBoxFor(e => e.Convenio, new { @class = "form-control" })
+                    <label class="col-form-label-lg">Convênio Médico e número da carteirinha</label>
+                    @Html.TextAreaFor(e => e.Convenio, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Pediatra - Contato</label>
-                    @Html.TextBoxFor(e => e.Nome_Pediatra_Contato, new { @class = "form-control" })
+                    <label class="col-form-label-lg">Nome do Pediatra - Telefone de contato</label>
+                    @Html.TextAreaFor(e => e.Nome_Pediatra_Contato, new { @class = "form-control" })
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Em caso de ocorrência médica ligar para ?</label>
-                    @Html.TextBoxFor(e => e.OcorrenciaMedica, new { @class = "form-control" })
+                    <label class="col-form-label-lg">Em caso de ocorrência médica ligar para</label>
+                    @Html.TextAreaFor(e => e.OcorrenciaMedica, new { @class = "form-control" })
                 </div>
+            </div>
+            <hr />
+            <div class="text-center">
+                <h3>Assinale os itens que se aplicam ao acampante.</h3>
             </div>
             <hr />
             <div class="row">
                 <div class="form-group col-md-6 align-self-center">
                     @Html.CheckBoxFor(e => e.Nadar, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Sabe nadar com desenvoltura?</label>
+                    <label class="col-form-label-lg">Sabe nadar com desenvoltura.</label>
                 </div>
                 <div class="form-group col-md-6">
                     @Html.CheckBoxFor(e => e.Boia, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Deverá usar Boia?</label>
+                    <label class="col-form-label-lg">Deverá usar boia.</label>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6 align-self-center">
                     @Html.CheckBoxFor(e => e.Dramin, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Autorizado a receber tratamento com DRAMIN</label>
+                    <label class="col-form-label-lg">Autorizado a receber tratamento com DRAMIN.</label>
                 </div>
                 <div class="form-group col-md-6">
                     @Html.CheckBoxFor(e => e.Vonal, new { @class = "form-check-label" })
                     <label class="col-form-label-lg">Autorizado a receber tratamento com VONAU.</label>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="form-group col-md-6 align-self-center">
-                    @Html.CheckBoxFor(e => e.Diabetes, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Tem Diabetes Mellitus</label>
-                </div>
-                <div class="form-group col-md-6">
-                    @Html.CheckBoxFor(e => e.Convulsao, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Tem Convulsões</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6 align-self-center">
-                    @Html.CheckBoxFor(e => e.Asma, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Tem Asma</label>
-                </div>
-                <div class="form-group col-md-6">
-                    @Html.CheckBoxFor(e => e.Bronquite, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Tem Bronquite</label>
-                </div>
-            </div>
             <div class="row">
                 <div class="form-group col-md-6 align-self-center">
                     @Html.CheckBoxFor(e => e.Infeccao_Recente, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Nos últimos dois meses teve algum tipo de infecção?</label>
+                    <label class="col-form-label-lg">Nos últimos dois meses teve algum tipo de infecção.</label>
                 </div>
                 <div class="form-group col-md-6">
                     @Html.CheckBoxFor(e => e.Enurese_Noturna, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Apresenta perda de urina durante a noite?</label>
+                    <label class="col-form-label-lg">Apresenta perda de urina durante a noite.</label>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6 align-self-center">
                     @Html.CheckBoxFor(e => e.Sonambulismo, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Tem sonambulismo?</label>
+                    <label class="col-form-label-lg">Tem sonambulismo.</label>
                 </div>
                 <div class="form-group col-md-6">
                     @Html.CheckBoxFor(e => e.Vacinas_Validas, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Tem todas as vacinas válidas?</label>
+                    <label class="col-form-label-lg">Tem todas as vacinas válidas.</label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-md-6 align-self-center">
                     @Html.CheckBoxFor(e => e.BelicheInferior, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Faz questão do beliche inferior?</label>
+                    <label class="col-form-label-lg">Faz questão do beliche inferior.</label>
                 </div>
                 <div class="form-group col-md-6 align-self-center">
                     @Html.CheckBoxFor(e => e.Aparelho_Dental, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Faz uso de aparelho ortodôntico móvel?</label>
+                    <label class="col-form-label-lg">Faz uso de aparelho ortodôntico móvel.</label>
                 </div>
             </div>
-            <hr />
+            <div class="row">
+                <div class="form-group col-md-6 align-self-center">
+                    @Html.CheckBoxFor(e => e.Diabetes, new { @class = "form-check-label" })
+                    <label class="col-form-label-lg">Tem Diabetes Mellitus.</label>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Favor informar como é realizado o tratamento.</label>
+                    @Html.TextAreaFor(e => e.Tratamento_Diabetes, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    @Html.CheckBoxFor(e => e.Convulsao, new { @class = "form-check-label" })
+                    <label class="col-form-label-lg">Tem Convulsões.</label>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Favor informar como é realizado o tratamento.</label>
+                    @Html.TextAreaFor(e => e.Tratamento_Convulsao, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 align-self-center">
+                    @Html.CheckBoxFor(e => e.Asma, new { @class = "form-check-label" })
+                    <label class="col-form-label-lg">Tem Asma.</label>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Favor informar como é realizado o tratamento.</label>
+                    @Html.TextAreaFor(e => e.Tratamento_Asma, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    @Html.CheckBoxFor(e => e.Bronquite, new { @class = "form-check-label" })
+                    <label class="col-form-label-lg">Tem Bronquite.</label>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Favor informar como é realizado o tratamento.</label>
+                    @Html.TextAreaFor(e => e.Tratamento_Bronquite, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     @Html.CheckBoxFor(e => e.Acomp_Psicologico, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Faz ou fez acompanhamento médico ou psicológico?</label>
+                    <label class="col-form-label-lg">Faz ou fez acompanhamento médico ou psicológico.</label>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Motivo do acompanhamento psicologico?</label>
-                    @Html.TextBoxFor(e => e.Motivo_Acomp_Psicologico, new { @class = "form-control" })
+                    <label class="col-form-label-lg">Motivo do acompanhamento psicológico.</label>
+                    @Html.TextAreaFor(e => e.Motivo_Acomp_Psicologico, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6 align-self-center">
                     @Html.CheckBoxFor(e => e.H1N1, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Tomou a vacina Influenza H1N1?</label>
+                    <label class="col-form-label-lg">Tomou a vacina Influenza H1N1.</label>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Em caso positivo anotar a data da imunização.</label>
-                    @Html.EditorFor(e => e.Dat_H1N1, new { htmlAttributes = new { @class = "form-control" } })
+                    <label class="col-form-label-lg">Informar a data da imunização.</label>
+                    @Html.TextAreaFor(e => e.Dat_H1N1, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6 align-self-center">
                     @Html.CheckBoxFor(e => e.MenigiteC, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Tomou a vacina Meningite C?</label>
+                    <label class="col-form-label-lg">Tomou a vacina Meningite C.</label>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Em caso positivo anotar a data da imunização.</label>
-                    @Html.EditorFor(e => e.Dat_MenigiteC, new { htmlAttributes = new { @class = "form-control" } })
+                    <label class="col-form-label-lg">Informar a data da imunização.</label>
+                    @Html.TextAreaFor(e => e.Dat_MenigiteC, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 align-self-center">
+                    @Html.CheckBoxFor(e => e.MenigiteC, new { @class = "form-check-label" })
+                    <label class="col-form-label-lg">Teve COVID-19</label>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Informar a data.</label>
+                    @Html.TextAreaFor(e => e.Dat_MenigiteC, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     @Html.CheckBoxFor(e => e.RestricaoAttFisica, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Tem restrição à prática de atividade física?</label>
+                    <label class="col-form-label-lg">Tem restrição à prática de atividade física.</label>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Em caso positivo favor nos informar.</label>
-                    @Html.TextBoxFor(e => e.Obs_RestricaoAttFisica, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    @Html.CheckBoxFor(e => e.Alergia_Medicamento, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Algum tipo de alergia ao uso de algum medicamento?</label>
-                </div>
-                <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Em caso positivo favor nos informar.</label>
-                    @Html.TextBoxFor(e => e.Obs_Alergia_Medicamento, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    @Html.CheckBoxFor(e => e.Necessidade_Especial, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">O acampante apresenta alguma necessidade especial?</label>
-                </div>
-                <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Em caso positivo favor nos informar.</label>
-                    @Html.TextBoxFor(e => e.Obs_Necessidade_Especial, new { @class = "form-control" })
+                    <label class="col-form-label-lg">Informar qual a restrição e o motivo.</label>
+                    @Html.TextAreaFor(e => e.Obs_RestricaoAttFisica, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     @Html.CheckBoxFor(e => e.Restricao_Alimentar, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Tem alguma restrição alimentar?</label>
+                    <label class="col-form-label-lg">Apresenta alguma restrição alimentar.</label>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Em caso positivo favor nos informar.</label>
-                    @Html.TextBoxFor(e => e.Obs_Restricao_Alimentar, new { @class = "form-control" })
+                    <label class="col-form-label-lg">Especifique.</label>
+                    @Html.TextAreaFor(e => e.Obs_Restricao_Alimentar, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     @Html.CheckBoxFor(e => e.Medo_Fobia, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">O acampante tem algum tipo de medo ou fobia?</label>
+                    <label class="col-form-label-lg">Apresenta algum tipo de medo ou fobia</label>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Especifique.</label>
+                    @Html.TextAreaFor(e => e.Obs_Medo_Fobia, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Algum tipo de alergia ao uso de algum medicamento?</label>
+                    @Html.DropDownListFor(e => e.Necessidade_Especial, new SelectList(Enum.GetValues(typeof(Ficha.Talvez))), "Selecione", htmlAttributes: new { @class = "form-control" })
                 </div>
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Em caso positivo favor nos informar.</label>
-                    @Html.TextBoxFor(e => e.Obs_Medo_Fobia, new { @class = "form-control" })
+                    @Html.TextAreaFor(e => e.Obs_Alergia_Medicamento, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">O acampante apresenta alguma necessidade especial?</label>
+                    @Html.DropDownListFor(e => e.Necessidade_Especial, new SelectList(Enum.GetValues(typeof(Ficha.Selecione))), "Selecione", htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Em caso positivo favor nos informar.</label>
+                    @Html.TextAreaFor(e => e.Obs_Necessidade_Especial, new { @class = "form-control" })
+
                 </div>
             </div>
             <hr />
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Alguma observação que deseja acrescentar ?</label>
-                    @Html.TextBoxFor(e => e.Obs_Geral, new { @class = "form-control" })
+                    <label class="col-form-label-lg">O acampante trata-se preferencialmente com:</label>
+                    <div class="col-md-6">
+                        ALOPATIA @Html.CheckBoxFor(e => e.Necessidade_Especial, new { @class = "form-check-label" })
+                        HOMEOPATIA @Html.CheckBoxFor(e => e.Necessidade_Especial, new { @class = "form-check-label" })
+                    </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Como deve ser medicado em caso de Dor de garganta?</label>
-                    @Html.TextBoxFor(e => e.Orientacao_Garganta, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Como deve ser medicado em caso de Febre?</label>
-                    @Html.TextBoxFor(e => e.Orientacao_Febre, new { @class = "form-control" })
-                </div>
-                <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Como deve ser medicado em caso de Dor de barriga?</label>
-                    @Html.TextBoxFor(e => e.Orientacao_Barriga, new { @class = "form-control" })
+                    <label class="col-form-label-lg">Como costuma ser medicado em caso de dor de garganta?</label>
+                    @Html.TextAreaFor(e => e.Orientacao_Garganta, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Como deve ser medicado em caso de Dor de cabeça?</label>
-                    @Html.TextBoxFor(e => e.Orientacao_Cabeca, new { @class = "form-control" })
+                    <label class="col-form-label-lg">Como costuma ser medicado em caso de febre?</label>
+                    @Html.TextAreaFor(e => e.Orientacao_Febre, new { @class = "form-control" })
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Como deve ser medicado em caso de Dor de ouvido?</label>
-                    @Html.TextBoxFor(e => e.Orientacao_Ouvido, new { @class = "form-control" })
+                    <label class="col-form-label-lg">Como costuma ser medicado em caso de dor de barriga?</label>
+                    @Html.TextAreaFor(e => e.Orientacao_Barriga, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Como deve ser medicado em caso de Cólicas?</label>
-                    @Html.TextBoxFor(e => e.Orientacao_Colica, new { @class = "form-control" })
+                    <label class="col-form-label-lg">Como costuma ser medicado em caso de dor de cabeça?</label>
+                    @Html.TextAreaFor(e => e.Orientacao_Cabeca, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Como costuma ser medicado em caso de dor de ouvido?</label>
+                    @Html.TextAreaFor(e => e.Orientacao_Ouvido, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Como costuma ser medicado em caso de cólicas?</label>
+                    @Html.TextAreaFor(e => e.Orientacao_Colica, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Alguma observação que deseje acrescentar ?</label>
+                    @Html.TextAreaFor(e => e.Obs_Geral, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row" style="display:none">
@@ -252,7 +292,38 @@
         $(document).ready(function () {
             $("#Peso").mask("##99.99", {reverse:true});
             $("#Altura").mask("9.99");
+            $('#Dat_H1N1').mask('00/00/0000');
+            $('#Dat_MenigiteC').mask('00/00/0000');
+
         });
+        $("#Asma").change(function () {
+            if ($("#Asma").is(':checked')) {
+                $("#Tratamento_Asma").prop('readonly', false);
+            } else {
+                $("#Tratamento_Asma").prop('readonly', true);
+            }
+        })
+        $("#Bronquite").change(function () {
+            if ($("#Bronquite").is(':checked')) {
+                $("#Tratamento_Bronquite").prop('readonly', false);
+            } else {
+                $("#Tratamento_Bronquite").prop('readonly', true);
+            }
+        })
+        $("#Convulsao").change(function () {
+            if ($("#Convulsao").is(':checked')) {
+                $("#Tratamento_Convulsao").prop('readonly', false);
+            } else {
+                $("#Tratamento_Convulsao").prop('readonly', true);
+            }
+        })
+        $("#Diabetes").change(function () {
+            if ($("#Diabetes").is(':checked')) {
+                $("#Tratamento_Diabetes").prop('readonly', false);
+            } else {
+                $("#Tratamento_Diabetes").prop('readonly', true);
+            }
+        })
     </script>
 }
 

@@ -136,6 +136,9 @@ namespace Fichas.Controllers
                     ViewBag.Error = "Houve um erro ao processar sua solicitação tente novamente.";
                 }
             }else {
+                Ficha.Responsavel = resp;
+                Ficha.Acampante = acamp;
+                Ficha.Acampante.FichaRespondida = true;
                 _context.Ficha.Update(Ficha);
             }
             

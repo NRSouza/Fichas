@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,8 +24,10 @@ namespace Fichas.Models
         public string Motivo_Acomp_Psicologico { get; set; }
         public bool Vacinas_Validas { get; set; }
         public bool H1N1{ get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Dat_H1N1 { get; set; }
         public bool MenigiteC { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Dat_MenigiteC { get; set; }
         public bool BelicheInferior { get; set; }
         public bool Aparelho_Dental { get; set; }
@@ -37,9 +40,13 @@ namespace Fichas.Models
         public string Orientacao_Colica { get; set; }
         public string Orientacao_Garganta { get; set; }
         public bool Diabetes { get; set; }
+        public string Tratamento_Diabetes { get; set; }
         public bool Convulsao { get; set; }
+        public string Tratamento_Convulsao { get; set; }
         public bool Asma { get; set; }
+        public string Tratamento_Asma { get; set; }
         public bool Bronquite { get; set; }
+        public string Tratamento_Bronquite { get; set; }
         public bool Infeccao_Recente { get; set; }
         public bool Enurese_Noturna { get; set; }
         public bool Sonambulismo { get; set; }
@@ -58,5 +65,19 @@ namespace Fichas.Models
         public string OcorrenciaMedica { get; set; } 
         public string Obs_Geral { get; set; }
 
+        public enum Talvez
+        {
+            [Description("Sim")]
+            Sim,
+            [Description("Não sei")]
+            NaoSei
+        }
+        public enum Selecione
+        {
+            [Display(Name = "Sim")]
+            Sim,
+            [Display(Name = "Não")]
+            Nao
+        }
     }
 }
