@@ -13,8 +13,7 @@ namespace Fichas.Migrations
                 {
                     ID = table.Column<Guid>(nullable: false),
                     codResponsavel = table.Column<int>(nullable: false),
-                    Nome = table.Column<string>(nullable: true),
-                    FichaRespondida = table.Column<bool>(nullable: false)
+                    Nome = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,8 +26,9 @@ namespace Fichas.Migrations
                 {
                     ID = table.Column<Guid>(nullable: false),
                     codPessoa = table.Column<int>(nullable: false),
-                    codAcampante = table.Column<int>(nullable: false),
+                    codAcampante = table.Column<string>(nullable: true),
                     ResponsavelID = table.Column<Guid>(nullable: true),
+                    codPacote = table.Column<int>(nullable: true),
                     Nome = table.Column<string>(nullable: true),
                     FichaRespondida = table.Column<bool>(nullable: false)
                 },
@@ -60,9 +60,13 @@ namespace Fichas.Migrations
                     Acomp_Psicologico = table.Column<bool>(nullable: false),
                     Motivo_Acomp_Psicologico = table.Column<string>(nullable: true),
                     Vacinas_Validas = table.Column<bool>(nullable: false),
+                    Alopatia = table.Column<bool>(nullable: false),
+                    Homeopatia = table.Column<bool>(nullable: false),
                     H1N1 = table.Column<bool>(nullable: false),
                     Dat_H1N1 = table.Column<DateTime>(nullable: false),
                     MenigiteC = table.Column<bool>(nullable: false),
+                    Covid = table.Column<bool>(nullable: false),
+                    Dat_Covid = table.Column<DateTime>(nullable: false),
                     Dat_MenigiteC = table.Column<DateTime>(nullable: false),
                     BelicheInferior = table.Column<bool>(nullable: false),
                     Aparelho_Dental = table.Column<bool>(nullable: false),
@@ -75,24 +79,31 @@ namespace Fichas.Migrations
                     Orientacao_Colica = table.Column<string>(nullable: true),
                     Orientacao_Garganta = table.Column<string>(nullable: true),
                     Diabetes = table.Column<bool>(nullable: false),
+                    Tratamento_Diabetes = table.Column<string>(nullable: true),
                     Convulsao = table.Column<bool>(nullable: false),
+                    Tratamento_Convulsao = table.Column<string>(nullable: true),
                     Asma = table.Column<bool>(nullable: false),
+                    Tratamento_Asma = table.Column<string>(nullable: true),
                     Bronquite = table.Column<bool>(nullable: false),
+                    Tratamento_Bronquite = table.Column<string>(nullable: true),
                     Infeccao_Recente = table.Column<bool>(nullable: false),
                     Enurese_Noturna = table.Column<bool>(nullable: false),
                     Sonambulismo = table.Column<bool>(nullable: false),
                     RestricaoAttFisica = table.Column<bool>(nullable: false),
                     Obs_RestricaoAttFisica = table.Column<string>(nullable: true),
-                    Alergia_Medicamento = table.Column<bool>(nullable: false),
+                    Alergia_Medicamento = table.Column<string>(nullable: false),
                     Obs_Alergia_Medicamento = table.Column<string>(nullable: true),
-                    Necessidade_Especial = table.Column<bool>(nullable: false),
+                    Necessidade_Especial = table.Column<string>(nullable: false),
                     Obs_Necessidade_Especial = table.Column<string>(nullable: true),
                     Restricao_Alimentar = table.Column<bool>(nullable: false),
                     Obs_Restricao_Alimentar = table.Column<string>(nullable: true),
                     Medo_Fobia = table.Column<bool>(nullable: false),
                     Obs_Medo_Fobia = table.Column<string>(nullable: true),
                     OcorrenciaMedica = table.Column<string>(nullable: true),
-                    Obs_Geral = table.Column<string>(nullable: true)
+                    Obs_Geral = table.Column<string>(nullable: true),
+                    DatAtt = table.Column<DateTime>(nullable: false),
+                    Autorizacao_Atividades = table.Column<bool>(nullable: false),
+                    Obs_Autorizacao_Atividades = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

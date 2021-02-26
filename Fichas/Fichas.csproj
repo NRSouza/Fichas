@@ -5,8 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210215133910_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210215133910_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210222125200_ChangeDB.cs" />
+    <Compile Remove="Migrations\20210222125200_ChangeDB.Designer.cs" />
+    <Compile Remove="Migrations\20210222133327_MudancaModelsGUID.cs" />
+    <Compile Remove="Migrations\20210222133327_MudancaModelsGUID.Designer.cs" />
+    <Compile Remove="Migrations\20210222155007_CodAcampanteAllowNull.cs" />
+    <Compile Remove="Migrations\20210222155007_CodAcampanteAllowNull.Designer.cs" />
     <Compile Remove="Migrations\20210224132550_TratamentoABCD.cs" />
     <Compile Remove="Migrations\20210224132550_TratamentoABCD.Designer.cs" />
+    <Compile Remove="Migrations\20210224132805_TratamentoABCD.cs" />
+    <Compile Remove="Migrations\20210224132805_TratamentoABCD.Designer.cs" />
+    <Compile Remove="Migrations\20210225210422_Covd.cs" />
+    <Compile Remove="Migrations\20210225210422_Covd.Designer.cs" />
+    <Compile Remove="Migrations\20210226141606_DataAtt.cs" />
+    <Compile Remove="Migrations\20210226141606_DataAtt.Designer.cs" />
+    <Compile Remove="Migrations\20210226172918_FinalMigration.cs" />
+    <Compile Remove="Migrations\20210226172918_FinalMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="SoaContext\" />
   </ItemGroup>
 

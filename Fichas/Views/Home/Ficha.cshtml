@@ -7,6 +7,7 @@
         <h1 class="display-4">FICHA DE SAÚDE</h1>
         <hr />
         <h3>Olá @ViewBag.resp.Nome  - Ficha de @ViewBag.acamp.Nome</h3>
+        <div><p>@ViewBag.Dat</p></div>
     </div>
     <div class="container">
         <form asp-action="Ficha">
@@ -15,14 +16,14 @@
                 <h5 style="color:red">@ViewBag.error</h5>
             </div>
             <div class="row">
-            <div class="form-group col-md-6">
-                <label class="col-form-label-lg">Peso do acampante(kg)</label>
-                @Html.EditorFor(e => e.Peso, new { htmlAttributes = new { @class = "form-control", @placeholder = "(kg)" } })
-            </div>
-            <div class="form-group col-md-6">
-                <label class="col-form-label-lg">Altura do acampante</label>
-                @Html.EditorFor(e => e.Altura, new { htmlAttributes = new { @class = "form-control", @placeholder = "(m)" } })
-            </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Peso do acampante(kg)</label>
+                    @Html.EditorFor(e => e.Peso, new { htmlAttributes = new { @class = "form-control", @placeholder = "(kg)" } })
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Altura do acampante</label>
+                    @Html.EditorFor(e => e.Altura, new { htmlAttributes = new { @class = "form-control", @placeholder = "(m)" } })
+                </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
@@ -273,6 +274,17 @@
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Alguma observação que deseje acrescentar ?</label>
                     @Html.TextAreaFor(e => e.Obs_Geral, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Autorizo a da participação do acampante em todas as atividades oferecidas pelo NR.</label>
+                    @Html.CheckBoxFor(e => e.Autorizacao_Atividades, new { @class = "form-check-label" })
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Em caso negativo, citar a(s) atividade(s) e o(s) motivo(s).</label>
+                    @Html.TextAreaFor(e => e.Obs_Autorizacao_Atividades, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row" style="display:none">

@@ -40,9 +40,15 @@ namespace Fichas.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> Ficha(int CodResponsavel = 405808,
-            int CodAcampante = 410749)
+        public async Task<IActionResult> Ficha(int CodResponsavel, int CodAcampante)
         {
+            if (CodResponsavel == 0){
+                CodResponsavel = 408013; 
+            }
+            if (CodAcampante == 0) {
+                CodAcampante = 411703; 
+            }
+
             Ficha F = new Ficha();
 
             //CHECA SE A PESSOA JA POSSUI FICHA
@@ -51,6 +57,8 @@ namespace Fichas.Controllers
             var SoaResp = await _SOAContext.TbCadPessoa.Where(e => e.CodPessoa == CodResponsavel).FirstOrDefaultAsync();
             var SoaAcamp = await _SOAContext.TbCadPessoa.Where(e => e.CodPessoa == CodAcampante).FirstOrDefaultAsync();
             var SoaCodAcamp = await _SOAContext.TbCadPessoaidacampante.Where(e => e.CodPessoa == CodAcampante).FirstOrDefaultAsync();
+            ViewBag.Dat = "";
+
             //se o responsavel NAO EXISTE consequentemente o Acampante também não existe
             if (R == null)
             {
@@ -108,10 +116,10 @@ namespace Fichas.Controllers
                 {
                     F = await _context.Ficha.Where(e => e.Acampante == acamp).FirstOrDefaultAsync();
                     ViewBag.resp = R;
+                    ViewBag.Dat = "Ultima alteração - " + F.DatAtt.ToString("dd/MM/yyyy h:mm tt");
                     ViewBag.acamp = acamp;
                 }
             }
-
             return View(F);
         }
         [HttpPost]
@@ -125,7 +133,8 @@ namespace Fichas.Controllers
             ViewBag.acamp = acamp;
             ViewBag.ok = "";
             ViewBag.error = "";
-            
+            ViewBag.Dat = "";
+
             if (F == null)
             {
                 if (acamp.Responsavel.ID == resp.ID)
@@ -133,7 +142,10 @@ namespace Fichas.Controllers
                     Ficha.Responsavel = resp;
                     Ficha.Acampante = acamp;
                     Ficha.Acampante.FichaRespondida = true;
-                    ViewBag.ok = "Ficha adastrada com Sucesso!";
+                    Ficha.DatAtt = DateTime.Now;
+                    ViewBag.ok = "Ficha cadastrada com Sucesso!";
+                    ViewBag.Dat = "Ultima alteração - "+Ficha.DatAtt.ToString("dd/MM/yyyy h:mm tt");
+
                     _context.Ficha.Add(Ficha);
                 }
                 else{ 
@@ -143,8 +155,11 @@ namespace Fichas.Controllers
                 Ficha.Responsavel = resp;
                 Ficha.Acampante = acamp;
                 Ficha.Acampante.FichaRespondida = true;
+                Ficha.DatAtt = DateTime.Now;
                 _context.Ficha.Add(Ficha);
                 _context.Ficha.Remove(F);
+                ViewBag.Dat = "Ultima alteração - " + Ficha.DatAtt.ToString("dd/MM/yyyy h:mm tt");
+
                 ViewBag.ok = "Ficha alterada com sucesso!";
             }
 

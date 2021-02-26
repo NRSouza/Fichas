@@ -37,6 +37,9 @@ namespace Fichas.Migrations
                     b.Property<string>("codAcampante")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("codPacote")
+                        .HasColumnType("int");
+
                     b.Property<int>("codPessoa")
                         .HasColumnType("int");
 
@@ -75,6 +78,9 @@ namespace Fichas.Migrations
                     b.Property<bool>("Asma")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("Autorizacao_Atividades")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("BelicheInferior")
                         .HasColumnType("bit");
 
@@ -92,6 +98,9 @@ namespace Fichas.Migrations
 
                     b.Property<bool>("Covid")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("DatAtt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Dat_Covid")
                         .HasColumnType("datetime2");
@@ -140,6 +149,9 @@ namespace Fichas.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Obs_Alergia_Medicamento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Obs_Autorizacao_Atividades")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Obs_Geral")

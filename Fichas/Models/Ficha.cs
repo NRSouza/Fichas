@@ -69,20 +69,23 @@ namespace Fichas.Models
         public string Obs_Medo_Fobia { get; set; } 
         public string OcorrenciaMedica { get; set; } 
         public string Obs_Geral { get; set; }
+        public DateTime DatAtt { get; set; }
+        public bool Autorizacao_Atividades { get; set; }
+        public string Obs_Autorizacao_Atividades { get; set; }
 
         public enum Talvez
         {
             [Description("Sim")]
             Sim,
             [Description("Não sei")]
-            NaoSei
+            Não_Sei
         }
         public enum Selecione
         {
             [Display(Name = "Sim")]
             Sim,
             [Display(Name = "Não")]
-            Nao
+            Não
         }
     }
 }
