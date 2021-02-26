@@ -6098,19 +6098,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Leu\\.nuget\\packages\\": {}
+    "C:\\Users\\leuel\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Leu\\Source\\Repos\\Fichas\\Fichas\\Fichas.csproj",
+      "projectUniqueName": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj",
       "projectName": "Fichas",
-      "projectPath": "C:\\Users\\Leu\\Source\\Repos\\Fichas\\Fichas\\Fichas.csproj",
-      "packagesPath": "C:\\Users\\Leu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Leu\\Source\\Repos\\Fichas\\Fichas\\obj\\",
+      "projectPath": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj",
+      "packagesPath": "C:\\Users\\leuel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Leu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\leuel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6173,7 +6173,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

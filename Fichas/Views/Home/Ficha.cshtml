@@ -10,16 +10,19 @@
     </div>
     <div class="container">
         <form asp-action="Ficha">
-            <h5>@ViewBag.erro</h5>
+            <div class="text-center">
+                <h5 style="color:green">@ViewBag.ok</h5>
+                <h5 style="color:red">@ViewBag.error</h5>
+            </div>
             <div class="row">
-                <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Peso do acampante(kg)</label>
-                    @Html.EditorFor(e => e.Peso, new { htmlAttributes = new { @class = "form-control", @placeholder = "(kg)" } })
-                </div>
-                <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Altura do acampante</label>
-                    @Html.EditorFor(e => e.Altura,  new { htmlAttributes = new { @class = "form-control", @placeholder = "(m)" } })
-                </div>
+            <div class="form-group col-md-6">
+                <label class="col-form-label-lg">Peso do acampante(kg)</label>
+                @Html.EditorFor(e => e.Peso, new { htmlAttributes = new { @class = "form-control", @placeholder = "(kg)" } })
+            </div>
+            <div class="form-group col-md-6">
+                <label class="col-form-label-lg">Altura do acampante</label>
+                @Html.EditorFor(e => e.Altura, new { htmlAttributes = new { @class = "form-control", @placeholder = "(m)" } })
+            </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
@@ -154,7 +157,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Informar a data da imunização.</label>
-                    @Html.TextAreaFor(e => e.Dat_H1N1, new { @class = "form-control" })
+                    @Html.TextBoxFor(e => e.Dat_H1N1, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
@@ -164,17 +167,17 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Informar a data da imunização.</label>
-                    @Html.TextAreaFor(e => e.Dat_MenigiteC, new { @class = "form-control" })
+                    @Html.TextBoxFor(e => e.Dat_MenigiteC, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6 align-self-center">
-                    @Html.CheckBoxFor(e => e.MenigiteC, new { @class = "form-check-label" })
+                    @Html.CheckBoxFor(e => e.Covid, new { @class = "form-check-label" })
                     <label class="col-form-label-lg">Teve COVID-19</label>
                 </div>
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Informar a data.</label>
-                    @Html.TextAreaFor(e => e.Dat_MenigiteC, new { @class = "form-control" })
+                    @Html.TextBoxFor(e => e.Dat_Covid, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
@@ -210,7 +213,7 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Algum tipo de alergia ao uso de algum medicamento?</label>
-                    @Html.DropDownListFor(e => e.Necessidade_Especial, new SelectList(Enum.GetValues(typeof(Ficha.Talvez))), "Selecione", htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownListFor(e => e.Alergia_Medicamento, new SelectList(Enum.GetValues(typeof(Ficha.Talvez))), "Selecione", htmlAttributes: new { @class = "form-control" })
                 </div>
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Em caso positivo favor nos informar.</label>
@@ -233,8 +236,8 @@
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">O acampante trata-se preferencialmente com:</label>
                     <div class="col-md-6">
-                        ALOPATIA @Html.CheckBoxFor(e => e.Necessidade_Especial, new { @class = "form-check-label" })
-                        HOMEOPATIA @Html.CheckBoxFor(e => e.Necessidade_Especial, new { @class = "form-check-label" })
+                        ALOPATIA @Html.CheckBoxFor(e => e.Alopatia, new { @class = "form-check-label" })
+                        HOMEOPATIA @Html.CheckBoxFor(e => e.Homeopatia, new { @class = "form-check-label" })
                     </div>
                 </div>
                 <div class="form-group col-md-6">
@@ -293,6 +296,7 @@
             $("#Peso").mask("##99.99", {reverse:true});
             $("#Altura").mask("9.99");
             $('#Dat_H1N1').mask('00/00/0000');
+            $('#Dat_Covid').mask('00/00/0000');
             $('#Dat_MenigiteC').mask('00/00/0000');
 
         });

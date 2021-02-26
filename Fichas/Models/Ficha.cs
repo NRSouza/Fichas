@@ -23,10 +23,15 @@ namespace Fichas.Models
         public bool Acomp_Psicologico { get; set; }
         public string Motivo_Acomp_Psicologico { get; set; }
         public bool Vacinas_Validas { get; set; }
+        public bool Alopatia { get; set; }
+        public bool Homeopatia { get; set; }
         public bool H1N1{ get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Dat_H1N1 { get; set; }
         public bool MenigiteC { get; set; }
+        public bool Covid { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime Dat_Covid { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Dat_MenigiteC { get; set; }
         public bool BelicheInferior { get; set; }
@@ -53,10 +58,10 @@ namespace Fichas.Models
         public bool RestricaoAttFisica { get; set; }
         public string Obs_RestricaoAttFisica { get; set; }
         [Required]
-        public bool Alergia_Medicamento { get; set; }
+        public string Alergia_Medicamento { get; set; }
         public string Obs_Alergia_Medicamento { get; set; }
         [Required]
-        public bool Necessidade_Especial { get; set; }
+        public string Necessidade_Especial { get; set; }
         public string Obs_Necessidade_Especial { get; set; }
         public bool Restricao_Alimentar { get; set; }
         public string Obs_Restricao_Alimentar { get; set; }

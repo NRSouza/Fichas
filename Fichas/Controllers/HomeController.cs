@@ -115,33 +115,39 @@ namespace Fichas.Controllers
             return View(F);
         }
         [HttpPost]
-        public async Task<IActionResult> Ficha(Ficha Ficha,string respID ,string acampID)
+        public async Task<IActionResult> Ficha(Ficha Ficha,string respID , string acampID)
         {
             //verifica se o acampante é dependente desse responsavel
             Acampante acamp = await _context.Acampante.Where(e => e.ID.ToString() == acampID).FirstOrDefaultAsync();
             Responsavel resp = await _context.Responsavel.Where(e => e.ID.ToString() == respID).FirstOrDefaultAsync();
+            Ficha F = await _context.Ficha.Where(e => e.Acampante == acamp).FirstOrDefaultAsync();
             ViewBag.resp = resp;
             ViewBag.acamp = acamp;
-            if(Ficha.ID == null)
+            ViewBag.ok = "";
+            ViewBag.error = "";
+            
+            if (F == null)
             {
                 if (acamp.Responsavel.ID == resp.ID)
                 {
                     Ficha.Responsavel = resp;
                     Ficha.Acampante = acamp;
                     Ficha.Acampante.FichaRespondida = true;
-                    ViewBag.CadOk = "Ficha adastrada com Sucesso!";
+                    ViewBag.ok = "Ficha adastrada com Sucesso!";
                     _context.Ficha.Add(Ficha);
                 }
                 else{ 
-                    ViewBag.Error = "Houve um erro ao processar sua solicitação tente novamente.";
+                    ViewBag.error = "Houve um erro ao processar sua solicitação tente novamente.";
                 }
             }else {
                 Ficha.Responsavel = resp;
                 Ficha.Acampante = acamp;
                 Ficha.Acampante.FichaRespondida = true;
-                _context.Ficha.Update(Ficha);
+                _context.Ficha.Add(Ficha);
+                _context.Ficha.Remove(F);
+                ViewBag.ok = "Ficha alterada com sucesso!";
             }
-            
+
             await _context.SaveChangesAsync();     
             return View(Ficha);
         }
