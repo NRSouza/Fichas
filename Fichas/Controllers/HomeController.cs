@@ -42,84 +42,86 @@ namespace Fichas.Controllers
         [HttpGet]
         public async Task<IActionResult> Ficha(int CodResponsavel, int CodAcampante)
         {
-            if (CodResponsavel == 0){
-                CodResponsavel = 408013; 
-            }
-            if (CodAcampante == 0) {
-                CodAcampante = 411703; 
-            }
-
             Ficha F = new Ficha();
 
-            //CHECA SE A PESSOA JA POSSUI FICHA
-            Responsavel R = await _context.Responsavel.Where(e=>e.codResponsavel == CodResponsavel).FirstOrDefaultAsync();
-            Acampante A = await _context.Acampante.Where(e=>e.codPessoa == CodAcampante).FirstOrDefaultAsync();
-            var SoaResp = await _SOAContext.TbCadPessoa.Where(e => e.CodPessoa == CodResponsavel).FirstOrDefaultAsync();
-            var SoaAcamp = await _SOAContext.TbCadPessoa.Where(e => e.CodPessoa == CodAcampante).FirstOrDefaultAsync();
-            var SoaCodAcamp = await _SOAContext.TbCadPessoaidacampante.Where(e => e.CodPessoa == CodAcampante).FirstOrDefaultAsync();
-            ViewBag.Dat = "";
+            if (CodResponsavel != 0) {
 
-            //se o responsavel NAO EXISTE consequentemente o Acampante também não existe
-            if (R == null)
-            {
-                //Cria o Responsavel e o Acampante
-                Responsavel resp = new Responsavel();
-                resp.codResponsavel = CodResponsavel;
-                resp.Nome = SoaResp.NomPessoa;
 
-                Acampante acamp = new Acampante();
-                acamp.codPessoa = CodAcampante;
-                acamp.Nome = SoaAcamp.NomPessoa;
-                acamp.codAcampante = SoaCodAcamp == null ? null : SoaCodAcamp.CodPessoaidacampante.ToString();
+                //CHECA SE A PESSOA JA POSSUI FICHA
+                Responsavel R = await _context.Responsavel.Where(e => e.codResponsavel == CodResponsavel).FirstOrDefaultAsync();
+                Acampante A = await _context.Acampante.Where(e => e.codPessoa == CodAcampante).FirstOrDefaultAsync();
+                var SoaResp = await _SOAContext.TbCadPessoa.Where(e => e.CodPessoa == CodResponsavel).FirstOrDefaultAsync();
+                var SoaAcamp = await _SOAContext.TbCadPessoa.Where(e => e.CodPessoa == CodAcampante).FirstOrDefaultAsync();
+                var SoaCodAcamp = await _SOAContext.TbCadPessoaidacampante.Where(e => e.CodPessoa == CodAcampante).FirstOrDefaultAsync();
+                ViewBag.Dat = "";
 
-                if (SoaCodAcamp == null)
+                //se o responsavel NAO EXISTE consequentemente o Acampante também não existe
+                if (R == null)
                 {
-                    acamp.codAcampante = null;
+                    //Cria o Responsavel e o Acampante
+                    Responsavel resp = new Responsavel();
+                    resp.codResponsavel = CodResponsavel;
+                    resp.Nome = SoaResp.NomPessoa;
+
+                    Acampante acamp = new Acampante();
+                    acamp.codPessoa = CodAcampante;
+                    acamp.Nome = SoaAcamp.NomPessoa;
+                    acamp.codAcampante = SoaCodAcamp == null ? null : SoaCodAcamp.CodPessoaidacampante.ToString();
+
+                    if (SoaCodAcamp == null)
+                    {
+                        acamp.codAcampante = null;
+                    }
+                    else
+                    {
+                        acamp.codAcampante = SoaCodAcamp.CodPessoaidacampante.ToString();
+                    }
+                    acamp.Responsavel = resp;
+
+                    F.Responsavel = resp;
+                    F.Acampante = acamp;
+
+                    _context.Responsavel.Add(resp);
+                    _context.Acampante.Add(acamp);
+                    await _context.SaveChangesAsync();
+
+                    ViewBag.resp = resp;
+                    ViewBag.acamp = acamp;
                 }
                 else
                 {
-                    acamp.codAcampante = SoaCodAcamp.CodPessoaidacampante.ToString();
-                }
-                acamp.Responsavel = resp;
-                
-                F.Responsavel = resp;
-                F.Acampante = acamp;
-                
-                _context.Responsavel.Add(resp);
-                _context.Acampante.Add(acamp);
-                await _context.SaveChangesAsync();
+                    //se o responsavel foi criado ele possui um acampante
+                    Acampante acamp = await _context.Acampante.Where(e => e.Responsavel == R && e.codPessoa == CodAcampante).FirstOrDefaultAsync();
+                    //caso se trate de um segundo acampante, cria-lo
+                    if (acamp == null)
+                    {
+                        Acampante NovoAcamp = new Acampante();
+                        NovoAcamp.codPessoa = CodAcampante;
+                        NovoAcamp.Nome = SoaAcamp.NomPessoa;
+                        NovoAcamp.codAcampante = SoaCodAcamp == null ? null : SoaCodAcamp.CodPessoaidacampante.ToString();
+                        NovoAcamp.Responsavel = R;
+                        F.Responsavel = R;
+                        F.Acampante = NovoAcamp;
 
-                ViewBag.resp = resp;
-                ViewBag.acamp = acamp;
+                        _context.Acampante.Add(NovoAcamp);
+                        ViewBag.resp = R;
+                        ViewBag.acamp = NovoAcamp;
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        F = await _context.Ficha.Where(e => e.Acampante == acamp).FirstOrDefaultAsync();
+                        ViewBag.resp = R;
+                        //ViewBag.Dat = "Ultima alteração - " + F.DatAtt.ToString("dd/MM/yyyy h:mm tt");
+                        ViewBag.acamp = acamp;
+                    }
+                }
             }
             else
             {
-                //se o responsavel foi criado ele possui um acampante
-                Acampante acamp = await _context.Acampante.Where(e => e.Responsavel == R && e.codPessoa == CodAcampante).FirstOrDefaultAsync();
-                //caso se trate de um segundo acampante, cria-lo
-                if(acamp == null)
-                {
-                    Acampante NovoAcamp = new Acampante();
-                    NovoAcamp.codPessoa = CodAcampante;
-                    NovoAcamp.Nome = SoaAcamp.NomPessoa;
-                    NovoAcamp.codAcampante = SoaCodAcamp == null ? null : SoaCodAcamp.CodPessoaidacampante.ToString();
-                    NovoAcamp.Responsavel = R;
-                    F.Responsavel = R;
-                    F.Acampante = NovoAcamp;
-
-                    _context.Acampante.Add(NovoAcamp);
-                    ViewBag.resp = R;
-                    ViewBag.acamp = NovoAcamp;
-                    await _context.SaveChangesAsync();
-                }
-                else
-                {
-                    F = await _context.Ficha.Where(e => e.Acampante == acamp).FirstOrDefaultAsync();
-                    ViewBag.resp = R;
-                    ViewBag.Dat = "Ultima alteração - " + F.DatAtt.ToString("dd/MM/yyyy h:mm tt");
-                    ViewBag.acamp = acamp;
-                }
+                return Ok();
             }
+
             return View(F);
         }
         [HttpPost]
@@ -137,20 +139,14 @@ namespace Fichas.Controllers
 
             if (F == null)
             {
-                if (acamp.Responsavel.ID == resp.ID)
-                {
                     Ficha.Responsavel = resp;
                     Ficha.Acampante = acamp;
                     Ficha.Acampante.FichaRespondida = true;
                     Ficha.DatAtt = DateTime.Now;
-                    ViewBag.ok = "Ficha cadastrada com Sucesso!";
+                    ViewBag.ok = "Ficha cadastrada com sucesso!";
                     ViewBag.Dat = "Ultima alteração - "+Ficha.DatAtt.ToString("dd/MM/yyyy h:mm tt");
 
                     _context.Ficha.Add(Ficha);
-                }
-                else{ 
-                    ViewBag.error = "Houve um erro ao processar sua solicitação tente novamente.";
-                }
             }else {
                 Ficha.Responsavel = resp;
                 Ficha.Acampante = acamp;

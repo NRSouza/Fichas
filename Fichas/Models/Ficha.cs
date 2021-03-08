@@ -78,7 +78,7 @@ namespace Fichas.Models
             [Description("Sim")]
             Sim,
             [Description("Não sei")]
-            Não_Sei
+            Não_sei
         }
         public enum Selecione
         {
