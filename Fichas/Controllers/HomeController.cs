@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Fichas.Models;
+using Fichas.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using Fichas.SoaContext;
 
@@ -38,6 +39,35 @@ namespace Fichas.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Backoffice(string AuthToken)
+        {
+            if(AuthToken == "a7e47f6b5973c52cd00bf6fe257dae8de77810167df7a9d67ef898de29f21d86") 
+            {
+                //var SoaAcampantes = await _SOAContext.TbCadPessoa.Where(e => e.FlgAtivo == "S").FirstOrDefaultAsync();
+                var Pacotes = await _SOAContext.TbCadPacote.Where(e => e.FlgAtivo == "S").Select(e=>e.CodPacote).ToListAsync();
+                var Reservas = await _SOAContext.TbCadPessoapapelreserva.Where(e => e.FlgStatus == "F").ToListAsync();
+                var ReservasAtivas = new List<TbCadPessoapapelreserva> ();
+                var CodResponsavel = new List<long?>();
+                var CodAcampante = new List<long?>();
+
+                Reservas.ForEach(e =>
+                {
+                    if (Pacotes.Contains(e.CodPacote)){
+                        ReservasAtivas.Add(e);
+                        CodAcampante.Add(e.CodPessoa);
+                        CodResponsavel.Add(e.CodResponsavel);
+                    }
+                });
+
+                return View(ReservasAtivas);
+            }
+            else
+            {
+                return Ok();
+            }
+
         }
         [HttpGet]
         public async Task<IActionResult> Ficha(int CodResponsavel, int CodAcampante)

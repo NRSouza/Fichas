@@ -16,7 +16,7 @@ namespace Fichas.SoaContext
             TbCadSmsComunicacaoTransporte = new HashSet<TbCadSmsComunicacaoTransporte>();
         }
 
-        public long CodPacote { get; set; }
+        public long? CodPacote { get; set; }
         public byte? CodUnidadenr { get; set; }
         public string CodServico { get; set; }
         public string DesPacote { get; set; }

@@ -1,0 +1,32 @@
+﻿@using Fichas.ViewModel
+@model AcampanteResponsavel;
+@{
+    ViewData["Title"] = "BackOffice";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">BACK OFFICE</h1>
+        <hr />
+    </div>
+    <div class="container">
+        <form asp-action="Backoffice">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Nome acampante</label>
+                    @Html.EditorFor(e => e.Acampante.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label-lg">Nome Responsavel</label>
+                    @Html.EditorFor(e => e.Responsavel.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Checar Ficha" class="btn btn-primary" />
+            </div>
+        </form>
+        <div id="grid">
+    
+        </div>
+    </div>
+</div>
