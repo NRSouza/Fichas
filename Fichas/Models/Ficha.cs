@@ -87,5 +87,7 @@ namespace Fichas.Models
             [Display(Name = "Não")]
             Não
         }
+     
+
     }
 }

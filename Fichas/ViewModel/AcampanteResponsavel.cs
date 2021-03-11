@@ -10,5 +10,11 @@ namespace Fichas.ViewModel
     {
         public Acampante Acampante { get; set; }
         public Responsavel Responsavel { get; set; }
+        public string NomAcampante { get; set; }
+        public string NomResponsavel { get; set; }
+        public long? CodAcampante { get; set; }
+        public long? CodResponsavel { get; set; }
+        public bool FichaRespondida { get; set; }
+        public string Telefone { get; set; }
     }
 }

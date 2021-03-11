@@ -49,19 +49,53 @@ namespace Fichas.Controllers
                 var Pacotes = await _SOAContext.TbCadPacote.Where(e => e.FlgAtivo == "S").Select(e=>e.CodPacote).ToListAsync();
                 var Reservas = await _SOAContext.TbCadPessoapapelreserva.Where(e => e.FlgStatus == "F").ToListAsync();
                 var ReservasAtivas = new List<TbCadPessoapapelreserva> ();
-                var CodResponsavel = new List<long?>();
-                var CodAcampante = new List<long?>();
+                var grid = new AcampanteResponsavel();
+                var GridList = new List<AcampanteResponsavel>();
 
-                Reservas.ForEach(e =>
+                Reservas.ForEach( e =>
                 {
                     if (Pacotes.Contains(e.CodPacote)){
                         ReservasAtivas.Add(e);
-                        CodAcampante.Add(e.CodPessoa);
-                        CodResponsavel.Add(e.CodResponsavel);
+
+                        AcampanteResponsavel ar = new AcampanteResponsavel
+                        {
+                            CodResponsavel = e.CodResponsavel,
+                            CodAcampante = e.CodPessoa,
+                        };
+
+                        GridList.Add(ar);
                     }
                 });
 
-                return View(ReservasAtivas);
+                // HORA DA CAGADA
+                var pessoasGeral = await _SOAContext.TbCadPessoa.AsNoTracking().ToListAsync();
+                var telefoneGeral = await _SOAContext.TbCadPessoafichatelefone.AsNoTracking().ToListAsync();
+                //Acampante Acamp = await _context.Acampante.Where(e=>e.codPessoa == )
+                var acpGeral = await _context.Acampante.AsNoTracking().ToListAsync();
+                foreach (var item in GridList)
+                {
+                    var tel = telefoneGeral.Where(x => x.CodPessoa == item.CodResponsavel && x.CodTipotelefone == 1).FirstOrDefault();
+                    var acp = pessoasGeral.Where(x => x.CodPessoa == item.CodAcampante).FirstOrDefault();
+                    var resp = pessoasGeral.Where(x => x.CodPessoa == item.CodResponsavel).FirstOrDefault();
+                    var ficharesp = acpGeral.Where(x => x.codPessoa == item.CodAcampante).FirstOrDefault();
+                    
+                    item.NomAcampante = acp.NomPessoa;
+                    if(ficharesp is null)
+                    {
+                        item.FichaRespondida = false;
+                    }
+                    else
+                    {
+                        item.FichaRespondida = ficharesp.FichaRespondida;
+                    }
+                    item.Telefone = tel.DesDdd + tel.NumTelefone;
+                    item.NomResponsavel = resp.NomPessoa;
+                }
+                GridList = GridList.OrderBy(o => o.NomResponsavel).ToList();
+
+                // FIM DA HORA DA CAGADA
+
+                return View(GridList);
             }
             else
             {
