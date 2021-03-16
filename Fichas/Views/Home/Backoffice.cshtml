@@ -16,12 +16,12 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Nome acampante</label>-->
-                    @*@Html.EditorFor(e => e.Acampante.Nome, new { htmlAttributes = new { @class = "form-control" } })*@
-                <!--</div>
-                <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Nome Responsavel</label>-->
-                    @*@Html.EditorFor(e => e.Responsavel.Nome, new { htmlAttributes = new { @class = "form-control" } })*@
-                <!--</div>
+        @*@Html.EditorFor(e => e.Acampante.Nome, new { htmlAttributes = new { @class = "form-control" } })*@
+        <!--</div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label-lg">Nome Responsavel</label>-->
+        @*@Html.EditorFor(e => e.Responsavel.Nome, new { htmlAttributes = new { @class = "form-control" } })*@
+        <!--</div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Checar Ficha" class="btn btn-primary" />
@@ -37,24 +37,53 @@
                         <th scope="col">Responsavel</th>
                         <th scope="col">Acampante</th>
                         <th scope="col">Ficha</th>
+                        <th scope="col">Msg Enviada?</th>
                         <th scope="col">Preenchida?</th>
                         <th scope="col">WhatsApp</th>
+                        <th scope="col" style="display:none">ID</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var x in Model)
                     {
 
-                    <tr>
-                        <td><b>@x.NomResponsavel</b></td>
-                        <td><b>@x.NomAcampante</b></td>
-                        <td><b><a asp-action="Ficha" asp-route-CodResponsavel="@x.CodResponsavel" asp-route-CodAcampante="@x.CodAcampante">FICHA</a></b></td>
-                        <td>@if (x.FichaRespondida) { <b>SIM</b> } else { <b>NÃO</b> }</td>
-                        <td><a href="https://api.whatsapp.com/send?phone=@x.Telefone&text=Sua%20ficha%20de%20saude%20ainda%20esta%20pendente%20porfavor%20preencher%20a%20ficha%20atraves%20do%20link%3A%20https%3A%2F%2Ffichas.nrops.com.br%2F%3FCodResponsavel=@x.CodResponsavel%26CodAcampante=@x.CodAcampante" target="_blank">WhatsApp</a></td>
-                    </tr>
+                        <tr>
+                            <td><b>@x.NomResponsavel</b></td>
+                            <td><b>@x.NomAcampante</b></td>
+                            <td><b><a asp-action="Ficha" asp-route-CodResponsavel="@x.CodResponsavel" asp-route-CodAcampante="@x.CodAcampante">FICHA</a></b></td>
+                            <td>@if (x.ExisteAcampante) { <input type="checkbox" checked="@x.FlgWhatsApp" onclick="SaveWhats(event);" /> }</td>
+                            <td>
+                                @if (x.FichaRespondida)
+                                {<b style="color:green">SIM</b> }
+                                else
+                                { <b style="color:red">NÃO</b>}
+                            <td><a href="https://api.whatsapp.com/send?phone=@x.Telefone&text=Por%20favor%2%20Cclique%20no%20link%20abaixo%20e%20preencha%20a%20FICHA%20DE%20SA%C3%9ADE%20de%20seu%20acampante%3B%20a%20mesma%20aparece%20como%20PENDENTE%20em%20nosso%20sistema.%20Qualquer%20d%C3%BAvida%20entrar%20em%20contato%20atrav%C3%A9s%20dos%20WhatsApps%3A%20(11)%2097128-7488%20ou%20(11)%2099265-8314.%20Att%2C%20Equipe%20NR%3A%20https%3A%2F%2Ffichas.nrops.com.br%2F%3FCodResponsavel=@x.CodResponsavel%26CodAcampante=@x.CodAcampante" target="_blank">WhatsApp</a></td>
+                            <td style="display:none">@x.CodAcampante</td>
+                        </tr>
                     }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+@section Scripts {
+    <script>
+
+        function SaveWhats(event) {
+            let x = $(event.target).parents();
+            let id = x[1].children[6].innerHTML;
+            let box = $(event.target);
+            let flg = box.is(":checked");
+
+            $.ajax({
+                url: "UpdFlgWhats",
+                type: "post",
+                data: {id,flg},
+                success: function (data) {
+                    console.log(data);
+                },
+                dataType: "Text",
+            });
+        }
+    </script>
+}

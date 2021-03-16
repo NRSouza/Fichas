@@ -99,3 +99,4 @@ C:\Users\leuel\source\repos\Fichas\Fichas\obj\Release\netcoreapp3.1\Fichas.cspro
 C:\Users\leuel\source\repos\Fichas\Fichas\obj\Release\netcoreapp3.1\Fichas.dll
 C:\Users\leuel\source\repos\Fichas\Fichas\obj\Release\netcoreapp3.1\Fichas.pdb
 C:\Users\leuel\source\repos\Fichas\Fichas\obj\Release\netcoreapp3.1\Fichas.genruntimeconfig.cache
+C:\Users\leuel\source\repos\Fichas\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Home\Backoffice.cshtml.g.cs

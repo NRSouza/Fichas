@@ -40,6 +40,24 @@ namespace Fichas.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<string> UpdFlgWhats(int id, bool flg)
+        {
+            var acampante = await _context.Acampante.Where(e => e.codPessoa == id).FirstOrDefaultAsync();
+            acampante.FlgWhatsApp = flg;
+            try
+            {
+                _context.Update(acampante);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                var msg = e.Message;
+                return msg;
+            }
+
+            return "ok";
+        }
         [HttpGet]
         public async Task<IActionResult> Backoffice(string AuthToken)
         {
@@ -70,6 +88,8 @@ namespace Fichas.Controllers
                 // HORA DA CAGADA
                 var pessoasGeral = await _SOAContext.TbCadPessoa.AsNoTracking().ToListAsync();
                 var telefoneGeral = await _SOAContext.TbCadPessoafichatelefone.AsNoTracking().ToListAsync();
+                var AcampFicha = await _context.Acampante.AsNoTracking().ToListAsync();
+
                 //Acampante Acamp = await _context.Acampante.Where(e=>e.codPessoa == )
                 var acpGeral = await _context.Acampante.AsNoTracking().ToListAsync();
                 foreach (var item in GridList)
@@ -78,16 +98,13 @@ namespace Fichas.Controllers
                     var acp = pessoasGeral.Where(x => x.CodPessoa == item.CodAcampante).FirstOrDefault();
                     var resp = pessoasGeral.Where(x => x.CodPessoa == item.CodResponsavel).FirstOrDefault();
                     var ficharesp = acpGeral.Where(x => x.codPessoa == item.CodAcampante).FirstOrDefault();
+                    var Whats = AcampFicha.Where(x=>x.codPessoa == item.CodAcampante).FirstOrDefault();
                     
+                    item.ExisteAcampante = Whats == null ? false:true;
+
                     item.NomAcampante = acp.NomPessoa;
-                    if(ficharesp is null)
-                    {
-                        item.FichaRespondida = false;
-                    }
-                    else
-                    {
-                        item.FichaRespondida = ficharesp.FichaRespondida;
-                    }
+                    item.FichaRespondida = ficharesp is null ? false : ficharesp.FichaRespondida;
+                    item.FlgWhatsApp = item.ExisteAcampante == false ? false : Whats.FlgWhatsApp;
                     item.Telefone = tel.DesDdd + tel.NumTelefone;
                     item.NomResponsavel = resp.NomPessoa;
                 }

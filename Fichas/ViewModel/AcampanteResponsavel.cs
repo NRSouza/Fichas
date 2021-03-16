@@ -13,8 +13,10 @@ namespace Fichas.ViewModel
         public string NomAcampante { get; set; }
         public string NomResponsavel { get; set; }
         public long? CodAcampante { get; set; }
+        public bool? FlgWhatsApp { get; set; }
         public long? CodResponsavel { get; set; }
         public bool FichaRespondida { get; set; }
+        public bool ExisteAcampante { get; set; }
         public string Telefone { get; set; }
     }
 }

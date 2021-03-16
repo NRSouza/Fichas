@@ -13,5 +13,6 @@ namespace Fichas.Models
         public int? codPacote { get; set; }
         public string Nome { get; set; }
         public bool FichaRespondida { get; set; }
+        public bool FlgWhatsApp { get; set; }
     }
 }

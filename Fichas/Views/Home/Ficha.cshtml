@@ -237,8 +237,10 @@
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">O acampante trata-se preferencialmente com:</label>
                     <div class="col-md-6">
-                        ALOPATIA @Html.CheckBoxFor(e => e.Alopatia, new { @class = "form-check-label" })
-                        HOMEOPATIA @Html.CheckBoxFor(e => e.Homeopatia, new { @class = "form-check-label" })
+                        @Html.CheckBoxFor(e => e.Alopatia, new { @class = "form-check-label" })&nbsp;ALOPATIA
+                        &nbsp;
+                        &nbsp;
+                        @Html.CheckBoxFor(e => e.Homeopatia, new { @class = "form-check-label" })&nbsp;HOMEOPATIA
                     </div>
                 </div>
                 <div class="form-group col-md-6">
