@@ -31,6 +31,9 @@
             <div class="text-center">
                 <h4>Total - @Model.Count()</h4>
             </div>
+            <div>
+                <b><a asp-action="AttDados">Atualização dos Dados</a></b>
+            </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -50,7 +53,7 @@
                         <tr>
                             <td><b>@x.NomResponsavel</b></td>
                             <td><b>@x.NomAcampante</b></td>
-                            <td><b><a asp-action="Ficha" asp-route-CodResponsavel="@x.CodResponsavel" asp-route-CodAcampante="@x.CodAcampante">FICHA</a></b></td>
+                            <td><b><a asp-action="Ficha" asp-route-CodResponsavel="@x.CodResponsavel" asp-route-CodAcampante="@x.CodAcampante" target="_blank">FICHA</a></b></td>
                             <td>@if (x.ExisteAcampante) { <input type="checkbox" checked="@x.FlgWhatsApp" onclick="SaveWhats(event);" /> }</td>
                             <td>
                                 @if (x.FichaRespondida)

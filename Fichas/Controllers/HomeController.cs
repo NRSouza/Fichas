@@ -40,6 +40,45 @@ namespace Fichas.Controllers
         {
             return View();
         }
+        public async Task<bool> AttDados()
+        {
+            var AcampanteGeral = await _context.Acampante.AsNoTracking().ToListAsync();
+            var PacotesAtivos = await _SOAContext.TbCadPacote.Where(e => e.FlgAtivo == "S").Select(e => e.CodPacote).ToListAsync();
+            var Reservas = await _SOAContext.TbCadPessoapapelreserva.Where(e => e.FlgStatus == "F").ToListAsync();
+            var IdAcampanteGeral = await _SOAContext.TbCadPessoaidacampante.AsNoTracking().ToListAsync();
+
+            var ReservasAtivas = new List<TbCadPessoapapelreserva>();
+            Reservas.ForEach(e =>
+            {
+                if (PacotesAtivos.Contains(e.CodPacote))
+                {
+                    ReservasAtivas.Add(e);
+                }
+            });
+            foreach(var item in ReservasAtivas)
+            {
+                var acamp = AcampanteGeral.Where(e => e.codPessoa == item.CodPessoa).FirstOrDefault();
+                if(acamp != null)
+                {
+                    acamp.codPacote = (int)item.CodPacote;
+                    _context.Update(acamp);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            foreach (var item in IdAcampanteGeral)
+            {
+                var acamp = AcampanteGeral.Where(e => e.codPessoa == item.CodPessoa).FirstOrDefault();
+                if(acamp != null)
+                {
+                    acamp.codAcampante = item.CodPessoaidacampante.ToString();
+                    _context.Update(acamp);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            return true;
+        }
+
         [HttpPost]
         public async Task<string> UpdFlgWhats(int id, bool flg)
         {
