@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Fichas.Models
 {
-    public class Responsavel : Entity
+    public class Terceiros
     {
-        public int codResponsavel { get; set; }
+        public Guid Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
     }

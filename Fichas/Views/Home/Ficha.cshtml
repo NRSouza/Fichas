@@ -98,7 +98,7 @@
                 </div>
                 <div class="form-group col-md-6 align-self-center">
                     @Html.CheckBoxFor(e => e.Aparelho_Dental, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Faz uso de aparelho ortodôntico móvel.</label>
+                    <label class="col-form-label-lg">Fará uso de aparelho ortodôntico móvel durante a temporada (estou ciente de que o mesmo só será utilizado à noite, na hora de dormir).</label>
                 </div>
             </div>
             <div class="row">
@@ -194,7 +194,7 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     @Html.CheckBoxFor(e => e.Restricao_Alimentar, new { @class = "form-check-label" })
-                    <label class="col-form-label-lg">Apresenta alguma restrição alimentar.</label>
+                    <label class="col-form-label-lg">Apresenta alguma alergia, intolerância ou restrição alimentar.</label>
                 </div>
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Especifique.</label>
@@ -213,7 +213,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">Algum tipo de alergia ao uso de algum medicamento?</label>
+                    <label class="col-form-label-lg">Apresenta alergia ao uso de algum medicamento ou algum outro tipo de alergia? <b>Resposta obrigatória</b></label>
                     @Html.DropDownListFor(e => e.Alergia_Medicamento, new SelectList(Enum.GetValues(typeof(Ficha.Talvez))), "Selecione", htmlAttributes: new { @class = "form-control" })
                 </div>
                 <div class="form-group col-md-6">
@@ -223,7 +223,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="col-form-label-lg">O acampante apresenta alguma necessidade especial?</label>
+                    <label class="col-form-label-lg">O acampante apresenta alguma necessidade especial? <b>Resposta obrigatória</b></label>
                     @Html.DropDownListFor(e => e.Necessidade_Especial, new SelectList(Enum.GetValues(typeof(Ficha.Selecione))), "Selecione", htmlAttributes: new { @class = "form-control" })
                 </div>
                 <div class="form-group col-md-6">

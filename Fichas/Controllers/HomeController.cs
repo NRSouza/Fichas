@@ -43,11 +43,15 @@ namespace Fichas.Controllers
         public async Task<bool> AttDados()
         {
             var AcampanteGeral = await _context.Acampante.AsNoTracking().ToListAsync();
+            var ResponsaveisGeral = await _context.Responsavel.AsNoTracking().ToListAsync();
             var PacotesAtivos = await _SOAContext.TbCadPacote.Where(e => e.FlgAtivo == "S").Select(e => e.CodPacote).ToListAsync();
             var Reservas = await _SOAContext.TbCadPessoapapelreserva.Where(e => e.FlgStatus == "F").ToListAsync();
             var IdAcampanteGeral = await _SOAContext.TbCadPessoaidacampante.AsNoTracking().ToListAsync();
+            var fichaDat = await _SOAContext.TbCadPessoaficha.AsNoTracking().ToListAsync();
+            var pessoaGeral = await _SOAContext.TbCadPessoa.AsNoTracking().ToListAsync();
 
             var ReservasAtivas = new List<TbCadPessoapapelreserva>();
+
             Reservas.ForEach(e =>
             {
                 if (PacotesAtivos.Contains(e.CodPacote))
@@ -71,6 +75,26 @@ namespace Fichas.Controllers
                 if(acamp != null)
                 {
                     acamp.codAcampante = item.CodPessoaidacampante.ToString();
+                    _context.Update(acamp);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            foreach (var item in pessoaGeral)
+            {
+                var resp = ResponsaveisGeral.Where(e => e.codResponsavel == item.CodPessoa).FirstOrDefault();
+                if (resp != null)
+                {
+                    resp.Email= item.DesEmaillogin.ToString();
+                    _context.Update(resp);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            foreach (var item in fichaDat)
+            {
+                var acamp = AcampanteGeral.Where(e => e.codPessoa == item.CodPessoa).FirstOrDefault();
+                if (acamp != null)
+                {
+                    acamp.DatNascto = item.DatNascto;
                     _context.Update(acamp);
                     await _context.SaveChangesAsync();
                 }

@@ -201,3 +201,4 @@ C:\Users\Leu\Source\Repos\Fichas\Fichas\obj\Debug\netcoreapp3.1\Fichas.dll
 C:\Users\Leu\Source\Repos\Fichas\Fichas\obj\Debug\netcoreapp3.1\Fichas.pdb
 C:\Users\Leu\Source\Repos\Fichas\Fichas\obj\Debug\netcoreapp3.1\Fichas.genruntimeconfig.cache
 C:\Users\leuel\source\repos\Fichas\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Home\Backoffice.cshtml.g.cs
+C:\Users\leuel\source\repos\Fichas\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Message\Index.cshtml.g.cs
