@@ -1,0 +1,116 @@
+﻿@model Fichas.ViewModel.MessageAcampante;
+@{
+    ViewData["Title"] = "Amigos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">Amigo</th>
+                <th class="text-center" scope="col">Enviar Mensagem ?</th>
+                </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model.AmigosDoTerceiro)
+            {
+                <tr>
+                    <td class="text-center"><b>@x.Acampante.Nome</b></td>
+                    <td class="text-center"> <button class="btn btn-primary" onclick="SendMsg('@x.Acampante.ID','@x.Acampante.Nome')" >Enviar</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="form" id="Mensagem" style="display:none">
+    <form action="TerceiroSendMsg" method="post">
+        <div>
+            <div>
+                <h3 id="ParaMsg"></h3>
+            </div>
+            <label class="col-form-label-lg">Digite a mensagem</label>
+            @Html.TextAreaFor(e => e.Msg, new { @class = "form-control" })
+        </div>
+        <div style="display:none">
+            @Html.TextBoxFor(e => e.To, new { id = "ToMsg" });
+        </div>
+        <div>
+            <input style="margin-top:12px;" type="submit" value="Enviar" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+<br />
+<div>
+    <div class="row">
+        <div>
+            <label class="col-form-label-lg">Insira o <b>codigo do Acampante</b> que deseja enviar uma mensagem</label>
+            @Html.TextBoxFor(e => e.CodAcampante, new { @class = "form-control" })
+        </div>
+        <div>
+            <label class="col-form-label-lg">Para confirmação, informe a <b>data de nascimento</b> do acampante que deseja enviar uma mensagem</label>
+            @Html.TextBoxFor(e => e.DatNascto, new { @class = "form-control" })
+        </div>
+    </div>
+    <div id="ButtonConfirm" class="form-group center" style="margin-top:15px;">
+        <input type="button" value="Buscar" class="btn btn-primary" onclick="BuscaAcamp();" />
+    </div>
+</div>
+<div class="form" id="InsereAmigo" style="display:none">
+    <form action="AddAmigo" method="post">
+        <div>
+            <h4 id="nomeAcampante"></h4>
+            <label class="col-form-label-lg">Deseja adcionar esse acampante a sua lista de contatos ?</label>
+        </div>
+        <div style="display:none">
+            @Html.TextBoxFor(e => e.To, new { @class = "form-control" })
+        </div>
+        <div>
+            <input style="margin-top:12px;" type="submit" value="Sim" class="btn btn-primary" />
+        </div>
+        <div>
+            <input style="margin-top:12px;" type="button" onclick="Refresh();" value="Não" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        function Refresh() {
+            location.reload();
+        }
+        function BuscaAcamp() {
+            let Cod = $("#CodAcampante").val();
+            let Dat = $("#DatNascto").val();
+
+            $.ajax({
+                url: "BuscaAcamp",
+                type: "post",
+                data: { Cod, Dat },
+                success: function (data) {
+                    $("#InsereAmigo").css("display", "block");
+                    $("#nomeAcampante").html(data.nome);
+                    $("#To").val(data.id);
+
+                },
+                dataType: "json",
+            });
+        }
+        function SendMsg(id,nome) {
+            $("#Mensagem").css("display", "block");
+            $("#ToMsg").val(id);
+            $("#ParaMsg").html(nome);
+        }
+    </script>
+
+}

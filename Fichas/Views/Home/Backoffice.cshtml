@@ -48,19 +48,21 @@
                 </thead>
                 <tbody>
                     @foreach (var x in Model)
-                    {var telefone = "+55" + x.Telefone;
+                    {
+                        var telefone = "+55" + x.Telefone;
 
                         <tr>
                             <td><b>@x.NomResponsavel</b></td>
                             <td><b>@x.NomAcampante</b></td>
                             <td><b><a asp-action="Ficha" asp-route-CodResponsavel="@x.CodResponsavel" asp-route-CodAcampante="@x.CodAcampante" target="_blank">FICHA</a></b></td>
-                            <td>@if (x.ExisteAcampante) { <input type="checkbox" checked="@x.FlgWhatsApp" onclick="SaveWhats(event);" /> }</td>
+                            <td>@if (x.ExisteAcampante)
+                            {<input type="checkbox" checked="@x.FlgWhatsApp" onclick="SaveWhats(event);" />}</td>
                             <td>
                                 @if (x.FichaRespondida)
                                 {<b style="color:green">SIM</b> }
                                 else
                                 { <b style="color:red">NÃO</b>}
-                            <td><a href="https://api.whatsapp.com/send?phone=@telefone&text=Por%20favor%20Clique%20no%20link%20abaixo%20e%20preencha%20a%20FICHA%20DE%20SA%C3%9ADE%20de%20seu%20acampante%3B%20a%20mesma%20aparece%20como%20PENDENTE%20em%20nosso%20sistema.%20Qualquer%20d%C3%BAvida%20entrar%20em%20contato%20atrav%C3%A9s%20dos%20WhatsApps%3A%20(11)%2097128-7488%20ou%20(11)%2099265-8314.%20Att%2C%20Equipe%20NR%3A%20https%3A%2F%2Ffichas.nrops.com.br%2F%3FCodResponsavel=@x.CodResponsavel%26CodAcampante=@x.CodAcampante" target="_blank">WhatsApp</a></td>
+                            <td><a href="https://api.whatsapp.com/send?phone=@telefone&text=Por%20favor%2C%20clique%20no%20link%20abaixo%20e%20preencha%20a%20FICHA%20DE%20SA%C3%9ADE%20de%20seu%20acampante%3B%20a%20mesma%20aparece%20como%20PENDENTE%20em%20nosso%20sistema.%20Qualquer%20d%C3%BAvida%20entrar%20em%20contato%20atrav%C3%A9s%20dos%20WhatsApps%3A%20(11)%2097128-7488%20ou%20(11)%2099265-8314.%20Att%2C%20Equipe%20NR%3A%20https%3A%2F%2Ffichas.nrops.com.br%2F%3FCodResponsavel=@x.CodResponsavel%26CodAcampante=@x.CodAcampante" target="_blank">WhatsApp</a></td>
                             <td style="display:none">@x.CodAcampante</td>
                         </tr>
                     }
@@ -81,7 +83,7 @@
             $.ajax({
                 url: "UpdFlgWhats",
                 type: "post",
-                data: {id,flg},
+                data: { id, flg },
                 success: function (data) {
                     console.log(ok);
                 },

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fH5IbULWPxahzN/pPxyof+F7JdWzHtYc6UOAqTe3gH7a8tXJGgzMLfPHgSN16bcYe5jHL/LFWiTe1rGm+xm7Og==",
+  "dgSpecHash": "thh1bPk38kBSv2B5YFvMqb2qrtsZEdYy5lcJGzTIbEZMbCt186dxM708kGo0AKRSTiFdd21CVnunxmNL197yfw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj",
+  "projectFilePath": "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\Fichas.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\leuel\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\leuel\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

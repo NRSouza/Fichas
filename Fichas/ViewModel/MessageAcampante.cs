@@ -1,4 +1,5 @@
 ﻿using System;
+using Fichas.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,5 +16,6 @@ namespace Fichas.ViewModel
         public DateTime ToSee { get; set; }
         public string CodAcampante { get; set; }
         public string DatNascto { get; set; }
+        public List<AmigosDoTerceiro> AmigosDoTerceiro{ get; set; }
     }
 }

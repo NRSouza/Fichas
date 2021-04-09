@@ -4,14 +4,16 @@ using Fichas.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fichas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210408161022_Amigos")]
+    partial class Amigos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -263,32 +265,6 @@ namespace Fichas.Migrations
                     b.HasIndex("ResponsavelID");
 
                     b.ToTable("Ficha");
-                });
-
-            modelBuilder.Entity("Fichas.Models.Message", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("From")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Msg")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("To")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ToSee")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Message");
                 });
 
             modelBuilder.Entity("Fichas.Models.Responsavel", b =>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj": {}
+    "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\Fichas.csproj": {}
   },
   "projects": {
-    "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj": {
+    "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\Fichas.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj",
+        "projectUniqueName": "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\Fichas.csproj",
         "projectName": "Fichas",
-        "projectPath": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj",
+        "projectPath": "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\Fichas.csproj",
         "packagesPath": "C:\\Users\\leuel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\obj\\",
+        "outputPath": "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\leuel\\AppData\\Roaming\\NuGet\\NuGet.Config",

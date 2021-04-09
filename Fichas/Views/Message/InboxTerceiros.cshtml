@@ -1,0 +1,34 @@
+﻿@model List<Message>;
+@{
+    ViewData["Title"] = "Inbox";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">De</th>
+            <th scope="col">Para</th>
+            <th scope="col">Menssagem</th>
+            <th scope="col">Data de envio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td><b>@x.From</b></td>
+                <td><b>@x.To</b></td>
+                <td>@x.Msg</td>
+                <td>@x.CreateAt</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+

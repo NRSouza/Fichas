@@ -13,6 +13,9 @@ namespace Fichas.Data
 
         }
         public DbSet<Fichas.Models.Ficha> Ficha { get; set; }
+        public DbSet<Fichas.Models.Amigos> Amigos { get; set; }
+        public DbSet<Fichas.Models.Terceiros> Terceiros { get; set; }
+        public DbSet<Fichas.Models.Message> Message { get; set; }
         public DbSet<Fichas.Models.Acampante> Acampante { get; set; }
         public DbSet<Fichas.Models.Responsavel> Responsavel { get; set; }
     }
