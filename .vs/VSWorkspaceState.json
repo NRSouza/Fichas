@@ -2,11 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\Fichas",
-    "\\Fichas\\Controllers",
-    "\\Fichas\\Models",
-    "\\Fichas\\Views",
-    "\\Fichas\\Views\\Home"
+    "\\Fichas\\Views\\Home",
+    "\\Fichas\\wwwroot",
+    "\\Fichas\\wwwroot\\css"
   ],
-  "SelectedNode": "\\Fichas\\Controllers\\HomeController.cs",
+  "SelectedNode": "\\Fichas\\wwwroot\\css\\site.css",
   "PreviewInSolutionExplorer": false
 }
