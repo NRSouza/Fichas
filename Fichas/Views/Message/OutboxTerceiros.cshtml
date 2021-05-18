@@ -1,0 +1,32 @@
+﻿@model List<Fichas.ViewModel.MensagensDoAcampante>;
+@{
+    ViewData["Title"] = "Outbox";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="IndexTerceiros">Voltar</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">De</th>
+            <th scope="col">Para</th>
+            <th scope="col">Data de envio</th>
+            <th scope="col">Visualizar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td><b>@x.From.Nome</b></td>
+                <td><b>@x.To.Nome</b></td>
+                <td>@x.CreateAt.Day/@x.CreateAt.Month/@x.CreateAt.Year - @x.CreateAt.Hour:@x.CreateAt.Minute</td>
+                <td><a class="btn btn-primary" asp-action="VisualizaMsg" asp-route-MessageId="@x.MessageId.ID">Visualizar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

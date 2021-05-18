@@ -8,6 +8,7 @@ namespace Fichas.ViewModel
 {
     public class MensagensDoTerceiro
     {
+        public Message MessageId { get; set; }
         public string Msg { get; set; }
         public DateTime CreateAt { get; set; }
         public Terceiros To { get; set; }

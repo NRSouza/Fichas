@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Fy2mURjfCpp/dCEinscxbRqDPk0PAXGK4ym4d/FSY6vlKWEGTeqy0JFlKPzzM8Dxnq7sSMA7CEitOJW/6KJ4hw==",
+  "dgSpecHash": "xGoKxX6DAVtRAA6p407K32TSF7fEOXtmo04NQq5XLh4qN4p/O6SJoOc/dFHRig+SxdiITrntfoxLdo3oZ4HiVw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj",
+  "projectFilePath": "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\Fichas.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\leuel\\.nuget\\packages\\font.awesome\\5.15.3\\font.awesome.5.15.3.nupkg.sha512",
     "C:\\Users\\leuel\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\leuel\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\leuel\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

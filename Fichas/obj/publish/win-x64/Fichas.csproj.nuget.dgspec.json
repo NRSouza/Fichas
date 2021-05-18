@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj": {}
+    "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\Fichas.csproj": {}
   },
   "projects": {
-    "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj": {
+    "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\Fichas.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj",
+        "projectUniqueName": "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\Fichas.csproj",
         "projectName": "Fichas",
-        "projectPath": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\Fichas.csproj",
+        "projectPath": "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\Fichas.csproj",
         "packagesPath": "C:\\Users\\leuel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leuel\\source\\repos\\Fichas\\Fichas\\obj\\publish\\win-x64\\",
+        "outputPath": "C:\\Users\\leuel\\source\\repos\\FichasPRD\\Fichas\\obj\\publish\\win-x64\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\leuel\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Font.Awesome": {
+              "target": "Package",
+              "version": "[5.15.3, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.9, )"

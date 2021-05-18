@@ -1,0 +1,44 @@
+﻿@model List<Acampante>;
+@{
+    ViewData["Title"] = "Lista de Acampantes";
+}
+<div>
+    <div class="text-center">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <br />
+    <div class="container">
+        <div id="grid">
+            <div class="text-center">
+                <p>Lista de Acampantes cadastrados</p>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Acampante</th>
+                        <th scope="col" class="text-center">Equipe</th>
+                        <th scope="col" class="text-center">Editar Equipe</th>
+                        <th scope="col" class="text-center">Cod. Acampante</th>
+                        <th scope="col" class="text-center">Visualizar</th>
+                        <th scope="col" style="display:none">ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td><b>@x.Nome</b></td>
+                            <td class="text-center"><b>@x.Equipe</b></td>
+                            <td scope="col" class="text-center"><a asp-action="EditaEquipe" asp-route-AcampID="@x.ID" class="btn btn-info" target="_blank">Editar</a></td>
+                            <td class="text-center"><b>@x.codAcampante</b></td>
+                            <td class="text-center">@if (x.FlgImpressao == true)
+                            {<a asp-action="MsgsAcampante" asp-route-Acamp="@x.ID" class="btn btn-info" target="_blank">Mensagens</a>}
+                            else { <p> </p> }</td>
+                            <td style="display:none">@x.ID</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -306,3 +306,9 @@ C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Fichas.pdb
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Fichas.genruntimeconfig.cache
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Message\InboxTerceiros.cshtml.g.cs
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Message\IndexTerceiros.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Message\AddAmigoTerceiro.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Message\OutboxTerceiros.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Message\VisualizaMsg.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\AcampantesLista.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\EditaEquipe.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\MsgsAcampante.cshtml.g.cs

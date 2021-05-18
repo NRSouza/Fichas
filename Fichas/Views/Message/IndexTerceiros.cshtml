@@ -2,115 +2,159 @@
 @{
     ViewData["Title"] = "Amigos";
 }
+<div class="d-flex justify-content-center">
+    <div id="tamanho" class="w-50">
+        <div @*class="col-5 border border-dark rounded"*@>
+            <div class="row">
+                <div class="text-center col-6">
+                    <h1 class="display-4">@ViewData["Title"]</h1>
+                </div>
+                <div class="text-right col-6">
+                    <i class="fas fa-info-circle"></i>
+                    <br />
+                    Nova Mensagem <i class="fas fa-paper-plane"></i>
+                    <br />
+                    Inbox <i class="fas fa-inbox"></i>
+                    <br />
+                    Add Amigo <i class="fas fa-user-plus"></i>
+                </div>
 
-<div class="text-center">
-    <h1 class="display-4">@ViewData["Title"]</h1>
-</div>
-
-<div>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th class="text-center" scope="col">Amigo</th>
-                <th class="text-center" scope="col">Enviar Mensagem ?</th>
-                </tr>
-        </thead>
-        <tbody>
+            </div>
+        </div>
+        <br />
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-primary btn-lg" asp-action="AddAmigoTerceiro"><i class="fas fa-user-plus"></i></a>
+        </div>
+        <br />
+        <div>
+            <h3 style="color:@ViewBag.style">@ViewBag.retorno</h3>
+        </div>
+        <br />
+        <div class="modal fade" id="sendMsgModal">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="ParaMsg"></h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="TerceiroSendMsg" method="post">
+                        <div class="modal-body" id="Mensagem">
+                            <div>
+                                <label class="col-form-label-lg">Digite a mensagem</label>
+                                @Html.TextAreaFor(e => e.Msg, new { @class = "form-control" })
+                            </div>
+                            <div style="display:none">
+                                @Html.TextBoxFor(e => e.To, new { id = "ToMsg" });
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div>
             @foreach (var x in Model.AmigosDoTerceiro)
             {
-                <tr>
-                    <td class="text-center"><b>@x.Acampante.Nome</b></td>
-                    <td class="text-center"> <button class="btn btn-primary" onclick="SendMsg('@x.Acampante.ID','@x.Acampante.Nome')" >Enviar</button></td>
-                </tr>
+                var y = Model.NaoLidas.Where(e => e.To == x.Terceiros.ID && e.From == x.Acampante.ID).Count();
+                <div style="padding-bottom:10px;">
+                    <div class="card w-85 d-flex justify-content-center">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-3">
+                                    <p style="font-size:22px;background-color: CornflowerBlue;color:white; font-family:Verdana; text-align:center;" class="rounded-circle">@x.Acampante.Nome.Substring(0, 1)</p>
+                                </div>
+                                <div class="col-9">
+                                    <h5 class="card-title d-flex justify-content-center">
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#@x.Acampante.Nome.Replace(" ", String.Empty)" aria-expanded="false" aria-controls="@x.Acampante.Nome.Replace(" ", String.Empty)">
+                                            @x.Acampante.Nome
+                                        </button>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row collapse" id="@x.Acampante.Nome.Replace(" ", String.Empty)">
+                                <div class="col-6 d-flex justify-content-center">
+                                    <button class="btn btn-primary btn-lg btn-block novaMsg" data-Id="@x.Acampante.ID" data-nome="@x.Acampante.Nome" data-target="#sendMsgModal" data-toggle="modal" data-tooltip="tooltip" data-placement="bottom" title="Nova mensagem">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                                @*<div class="col-4 d-flex justify-content-center"><a class="btn btn-primary btn-lg btn-block" asp-action="OutboxTerceiros" asp-route-A="@x.Acampante.ID" data-tooltip="tooltip" data-placement="bottom" title="Mensagens Enviadas"></a></div>*@
+                                <div class="col-6 d-flex justify-content-center">
+                                    <a class="btn btn-primary btn-lg btn-block" asp-action="InboxTerceiros" asp-route-A="@x.Acampante.ID" data-tooltip="tooltip" data-placement="bottom" title="Mensagens Recebidas">
+                                        <i class="fas fa-inbox"></i> <span class="badge badge-light">
+                                            @if (y > 0)
+                                            {@(y);}
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
-</div>
-<br />
-<div class="form" id="Mensagem" style="display:none">
-    <form action="TerceiroSendMsg" method="post">
-        <div>
-            <div>
-                <h3 id="ParaMsg"></h3>
-            </div>
-            <label class="col-form-label-lg">Digite a mensagem</label>
-            @Html.TextAreaFor(e => e.Msg, new { @class = "form-control" })
-        </div>
-        <div style="display:none">
-            @Html.TextBoxFor(e => e.To, new { id = "ToMsg" });
-        </div>
-        <div>
-            <input style="margin-top:12px;" type="submit" value="Enviar" class="btn btn-primary" />
-        </div>
-    </form>
-</div>
-<br />
-<div>
-    <div class="row">
-        <div>
-            <label class="col-form-label-lg">Insira o <b>codigo do Acampante</b> que deseja enviar uma mensagem</label>
-            @Html.TextBoxFor(e => e.CodAcampante, new { @class = "form-control" })
-        </div>
-        <div>
-            <label class="col-form-label-lg">Para confirmação, informe a <b>data de nascimento</b> do acampante que deseja enviar uma mensagem</label>
-            @Html.TextBoxFor(e => e.DatNascto, new { @class = "form-control" })
+
+            @*<table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">Amigo</th>
+                        <th class="text-center" scope="col">Visualizar recebidas</th>
+                        <th class="text-center" scope="col">Visualizar enviadas</th>
+                        <th class="text-center" scope="col">Enviar Mensagem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model.AmigosDoTerceiro)
+                    {
+                        <tr>
+                            <td class="text-center"><b>@x.Acampante.Nome</b></td>
+                            <td class="text-center" scope="col">
+                                <a class="btn btn-primary" asp-action="InboxTerceiros" asp-route-A="@x.Acampante.ID">Visualizar</a>
+                            </td>
+                            <td class="text-center" scope="col">
+                                <a class="btn btn-primary" asp-action="OutboxTerceiros" asp-route-A="@x.Acampante.ID">Visualizar</a>
+                            </td>
+                            <td class="text-center"> <button class="btn btn-primary" onclick="SendMsg('@x.Acampante.ID','@x.Acampante.Nome')">Enviar</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>*@
         </div>
     </div>
-    <div id="ButtonConfirm" class="form-group center" style="margin-top:15px;">
-        <input type="button" value="Buscar" class="btn btn-primary" onclick="BuscaAcamp();" />
-    </div>
 </div>
-<div class="form" id="InsereAmigo" style="display:none">
-    <form action="AddAmigo" method="post">
-        <div>
-            <h4 id="nomeAcampante"></h4>
-            <label class="col-form-label-lg">Deseja adcionar esse acampante a sua lista de contatos ?</label>
-        </div>
-        <div style="display:none">
-            @Html.TextBoxFor(e => e.To, new { @class = "form-control" })
-        </div>
-        <div>
-            <input style="margin-top:12px;" type="submit" value="Sim" class="btn btn-primary" />
-        </div>
-        <div>
-            <input style="margin-top:12px;" type="button" onclick="Refresh();" value="Não" class="btn btn-primary" />
-        </div>
-    </form>
-</div>
-
-
-
-
-
-
 
 @section Scripts {
     <script>
-        function Refresh() {
-            location.reload();
-        }
-        function BuscaAcamp() {
-            let Cod = $("#CodAcampante").val();
-            let Dat = $("#DatNascto").val();
+        $('[data-tooltip="tooltip"]').tooltip();
 
-            $.ajax({
-                url: "BuscaAcamp",
-                type: "post",
-                data: { Cod, Dat },
-                success: function (data) {
-                    $("#InsereAmigo").css("display", "block");
-                    $("#nomeAcampante").html(data.nome);
-                    $("#To").val(data.id);
+        $('#sendMsgModal').on('show.bs.modal', function (event) {
+            let nome = event.relatedTarget.dataset.nome;
+            $('#ParaMsg').html(nome);
+            let id = event.relatedTarget.dataset.id;
+            $('#ToMsg').val(id);
+        })
 
-                },
-                dataType: "json",
-            });
-        }
-        function SendMsg(id,nome) {
-            $("#Mensagem").css("display", "block");
-            $("#ToMsg").val(id);
-            $("#ParaMsg").html(nome);
-        }
+        $(function () {
+
+            $(window).bind("resize", function () {
+                if ($(this).width() < 900) {
+                    $('#tamanho').removeClass('w-50').addClass('w-100')
+                }
+                else {
+                    $('#tamanho').removeClass('w-100').addClass('w-50')
+                }
+            })
+        })
+
+        //function SendMsg(id, nome) {
+        //    $("#Mensagem").css("display", "block");
+        //    $("#ToMsg").val(id);
+        //    $("#ParaMsg").html(nome);
+        //}
     </script>
 
 }

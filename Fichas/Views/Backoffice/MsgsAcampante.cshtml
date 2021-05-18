@@ -1,0 +1,42 @@
+﻿@model List<Fichas.ViewModel.MensagensDoAcampante>;
+@{
+    ViewData["Title"] = "Mensagens";
+}
+<div>
+    <div class="text-center">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <br />
+    <div class="container">
+        <div id="grid">
+            <div class="text-center">
+                <p>Lista de Mensagens do(a) acampante <b>@ViewBag.Nome</b></p>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">De</th>
+                        <th scope="col">Para</th>
+                        <th scope="col">Mensagem</th>
+                        <th scope="col">Criada em</th>
+                        <th scope="col">Visualizada em </th>
+                        <th scope="col" style="display:none">Imprimir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td><b>@x.From.Nome</b></td>
+                            <td><b>@x.To.Nome</b></td>
+                            <td><p>@x.Msg</p></td>
+                            <td>@x.CreateAt</td>
+                            <td>@x.ToSee</td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

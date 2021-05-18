@@ -1,0 +1,73 @@
+﻿@model Fichas.ViewModel.MessageAcampante;
+@{
+    ViewData["Title"] = "Adicionar Amigo";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<br />
+<div>
+    <a class="btn btn-primary" asp-action="IndexTerceiros">Voltar</a>
+</div>
+<br />
+<div>
+    <div class="row">
+        <div>
+            <label class="col-form-label-lg">Insira o código do participante para quem deseja enviar uma mensagem</label>
+            @Html.TextBoxFor(e => e.CodAcampante, new { @class = "form-control" })
+        </div>
+        <div>
+            <label class="col-form-label-lg">Para confirmação de identidade do participante, informe abaixo o dia e mês de nascimento do mesmo.</label>
+            @Html.TextBoxFor(e => e.DatNascto, new { @class = "form-control" })
+        </div>
+    </div>
+    <div id="ButtonConfirm" class="form-group center" style="margin-top:15px;">
+        <input type="button" value="Buscar" class="btn btn-primary" onclick="BuscaAcamp();" />
+    </div>
+</div>
+<div class="form" id="InsereAmigo" style="display:none">
+    <form action="AddAmigo" method="post">
+        <div>
+            <h4 id="nomeAcampante"></h4>
+            <label class="col-form-label-lg">Deseja adcionar esse acampante à sua lista de contatos ?</label>
+        </div>
+        <div style="display:none">
+            @Html.TextBoxFor(e => e.To, new { @class = "form-control" })
+        </div>
+        <div>
+            <input style="margin-top:12px;" type="submit" value="Sim" class="btn btn-primary" />&nbsp;
+            <input style="margin-top:12px;" type="button" onclick="Refresh();" value="Não" class="btn btn-primary" />
+
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#DatNascto').mask('00/00');
+        });
+        function Refresh() {
+            location.reload();
+        }
+        function BuscaAcamp() {
+            let Cod = $("#CodAcampante").val();
+            let Dat = $("#DatNascto").val();
+
+            $.ajax({
+                url: "BuscaAcamp",
+                type: "post",
+                data: { Cod, Dat },
+                success: function (data) {
+                    $("#InsereAmigo").css("display", "block");
+                    $("#nomeAcampante").html(data.nome);
+                    $("#To").val(data.id);
+
+                },
+                dataType: "json",
+            });
+        }
+    </script>
+
+}

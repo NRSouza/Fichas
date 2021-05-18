@@ -17,5 +17,6 @@ namespace Fichas.ViewModel
         public string CodAcampante { get; set; }
         public string DatNascto { get; set; }
         public List<AmigosDoTerceiro> AmigosDoTerceiro{ get; set; }
+        public List<Message> NaoLidas{ get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace Fichas.Models
         public string Nome { get; set; }
         public bool FichaRespondida { get; set; }
         public bool FlgWhatsApp { get; set; }
+        public bool FlgImpressao { get; set; }
         public int Equipe { get; set; }
         public DateTime? DatNascto { get; set; }
     }

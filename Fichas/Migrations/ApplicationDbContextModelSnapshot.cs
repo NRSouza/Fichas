@@ -34,6 +34,9 @@ namespace Fichas.Migrations
                     b.Property<bool>("FichaRespondida")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("FlgImpressao")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("FlgWhatsApp")
                         .HasColumnType("bit");
 

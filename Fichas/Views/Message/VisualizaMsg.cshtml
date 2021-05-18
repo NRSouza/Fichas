@@ -1,0 +1,63 @@
+﻿@model Message;
+@{
+    ViewData["Title"] = "Visualizar Mensagem";
+}
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<div>
+    <button class="btn btn-primary" onclick="voltar()">Voltar</button>
+</div>
+<br />
+<div class="border border-info rounded">
+    <p style="font-size:18px; padding:12px;">
+        @Model.Msg
+    </p>
+</div>
+<br />
+<div class="d-flex justify-content-center">
+    <button style="color:white;font-size:14px; text-align:center" class="btn btn-primary btn-lg btn-block novaMsg w-50" data-Id="@Model.From" data-nome="@Model.From" data-target="#sendMsgModal" data-toggle="modal" data-placement="bottom" title="Nova mensagem">
+        Responder
+        @*<i class="fas fa-paper-plane"></i>*@
+    </button>
+</div>
+<div class="modal fade" id="sendMsgModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="TerceiroSendMsg" method="post">
+                <div class="modal-body" id="Mensagem">
+                    <div>
+                        <label class="col-form-label-lg">Digite a mensagem</label>
+                        @Html.TextAreaFor(e => e.Msg, new { @class = "form-control" })
+                    </div>
+                    <div style="display:none">
+                        @Html.TextBoxFor(e => e.To, new { id = "ToMsg" });
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function voltar() {
+            window.history.back()
+        }
+        $('#sendMsgModal').on('show.bs.modal', function (event) {
+            let nome = event.relatedTarget.dataset.nome;
+            $('#ParaMsg').html(nome);
+            let id = event.relatedTarget.dataset.id;
+            $('#ToMsg').val(id);
+        })
+    </script>
+
+}
