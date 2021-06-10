@@ -1,0 +1,17 @@
+﻿@model Fichas.ViewModel.ImpressaoLote;
+<div>
+    <div>
+        <p class="text-justify" style="font-size:20px"><b>@Model.Acampante.Nome - @Model.Acampante.Equipe - @Model.Acampante.codAcampante - @Model.Acampante.DesPacote</b></p>
+        <br />
+        <p>De: <b>@Model.Terceiro.Nome</b></p>
+        <p style="font-size:16px;">@Model.Message.Msg</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.onload = function () {
+            window.print();
+        }
+    </script>
+}

@@ -17,10 +17,9 @@
                     <tr>
                         <th scope="col">De</th>
                         <th scope="col">Para</th>
-                        <th scope="col">Mensagem</th>
                         <th scope="col">Criada em</th>
                         <th scope="col">Visualizada em </th>
-                        <th scope="col" style="display:none">Imprimir</th>
+                        <th scope="col">Imprimir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,10 +28,9 @@
                         <tr>
                             <td><b>@x.From.Nome</b></td>
                             <td><b>@x.To.Nome</b></td>
-                            <td><p>@x.Msg</p></td>
                             <td>@x.CreateAt</td>
                             <td>@x.ToSee</td>
-                            <td></td>
+                            <td><a asp-action="ImprimirIndividual" asp-route-MessageId="@x.MessageId.ID" class="btn btn-info" target="_blank">Imprimir</a></td>
                         </tr>
                     }
                 </tbody>

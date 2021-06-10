@@ -28,8 +28,11 @@ namespace Fichas.Migrations
                     b.Property<DateTime?>("DatNascto")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Equipe")
-                        .HasColumnType("int");
+                    b.Property<string>("DesPacote")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Equipe")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("FichaRespondida")
                         .HasColumnType("bit");
@@ -45,6 +48,9 @@ namespace Fichas.Migrations
 
                     b.Property<Guid?>("ResponsavelID")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Unidade")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("codAcampante")
                         .HasColumnType("nvarchar(max)");
@@ -153,6 +159,9 @@ namespace Fichas.Migrations
                     b.Property<bool>("Enurese_Noturna")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("FreeKosher")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("H1N1")
                         .HasColumnType("bit");
 
@@ -257,6 +266,9 @@ namespace Fichas.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("Vonal")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("WeDoKosher")
                         .HasColumnType("bit");
 
                     b.HasKey("ID");

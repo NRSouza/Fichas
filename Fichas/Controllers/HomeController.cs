@@ -40,68 +40,6 @@ namespace Fichas.Controllers
         {
             return View();
         }
-        public async Task<bool> AttDados()
-        {
-            var AcampanteGeral = await _context.Acampante.AsNoTracking().ToListAsync();
-            var ResponsaveisGeral = await _context.Responsavel.AsNoTracking().ToListAsync();
-            var PacotesAtivos = await _SOAContext.TbCadPacote.Where(e => e.FlgAtivo == "S").Select(e => e.CodPacote).ToListAsync();
-            var Reservas = await _SOAContext.TbCadPessoapapelreserva.Where(e => e.FlgStatus == "F").ToListAsync();
-            var IdAcampanteGeral = await _SOAContext.TbCadPessoaidacampante.AsNoTracking().ToListAsync();
-            var fichaDat = await _SOAContext.TbCadPessoaficha.AsNoTracking().ToListAsync();
-            var pessoaGeral = await _SOAContext.TbCadPessoa.AsNoTracking().ToListAsync();
-
-            var ReservasAtivas = new List<TbCadPessoapapelreserva>();
-
-            Reservas.ForEach(e =>
-            {
-                if (PacotesAtivos.Contains(e.CodPacote))
-                {
-                    ReservasAtivas.Add(e);
-                }
-            });
-            foreach(var item in ReservasAtivas)
-            {
-                var acamp = AcampanteGeral.Where(e => e.codPessoa == item.CodPessoa).FirstOrDefault();
-                if(acamp != null)
-                {
-                    acamp.codPacote = (int)item.CodPacote;
-                    _context.Update(acamp);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            foreach (var item in IdAcampanteGeral)
-            {
-                var acamp = AcampanteGeral.Where(e => e.codPessoa == item.CodPessoa).FirstOrDefault();
-                if(acamp != null)
-                {
-                    acamp.codAcampante = item.CodPessoaidacampante.ToString();
-                    _context.Update(acamp);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            foreach (var item in pessoaGeral)
-            {
-                var resp = ResponsaveisGeral.Where(e => e.codResponsavel == item.CodPessoa).FirstOrDefault();
-                if (resp != null)
-                {
-                    resp.Email= item.DesEmaillogin.ToString();
-                    _context.Update(resp);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            foreach (var item in fichaDat)
-            {
-                var acamp = AcampanteGeral.Where(e => e.codPessoa == item.CodPessoa).FirstOrDefault();
-                if (acamp != null)
-                {
-                    acamp.DatNascto = item.DatNascto;
-                    _context.Update(acamp);
-                    await _context.SaveChangesAsync();
-                }
-            }
-
-            return true;
-        }
 
         [HttpPost]
         public async Task<string> UpdFlgWhats(int id, bool flg)
@@ -124,29 +62,29 @@ namespace Fichas.Controllers
         [HttpGet]
         public async Task<IActionResult> Backoffice(string AuthToken)
         {
-            if(AuthToken == "a7e47f6b5973c52cd00bf6fe257dae8de77810167df7a9d67ef898de29f21d86") 
+            if (AuthToken == "a7e47f6b5973c52cd00bf6fe257dae8de77810167df7a9d67ef898de29f21d86")
             {
                 //var SoaAcampantes = await _SOAContext.TbCadPessoa.Where(e => e.FlgAtivo == "S").FirstOrDefaultAsync();
-                var Pacotes = await _SOAContext.TbCadPacote.Where(e => e.FlgAtivo == "S").Select(e=>e.CodPacote).ToListAsync();
+                var Pacotes = await _SOAContext.TbCadPacote.Where(e => e.FlgAtivo == "S").Select(e => e.CodPacote).ToListAsync();
                 var Reservas = await _SOAContext.TbCadPessoapapelreserva.Where(e => e.FlgStatus == "F").ToListAsync();
-                var ReservasAtivas = new List<TbCadPessoapapelreserva> ();
+                var ReservasAtivas = new List<TbCadPessoapapelreserva>();
                 var grid = new AcampanteResponsavel();
                 var GridList = new List<AcampanteResponsavel>();
 
-                Reservas.ForEach( e =>
-                {
-                    if (Pacotes.Contains(e.CodPacote)){
-                        ReservasAtivas.Add(e);
+                Reservas.ForEach(e =>
+               {
+                   if (Pacotes.Contains(e.CodPacote)) {
+                       ReservasAtivas.Add(e);
 
-                        AcampanteResponsavel ar = new AcampanteResponsavel
-                        {
-                            CodResponsavel = e.CodResponsavel,
-                            CodAcampante = e.CodPessoa,
-                        };
+                       AcampanteResponsavel ar = new AcampanteResponsavel
+                       {
+                           CodResponsavel = e.CodResponsavel,
+                           CodAcampante = e.CodPessoa,
+                       };
 
-                        GridList.Add(ar);
-                    }
-                });
+                       GridList.Add(ar);
+                   }
+               });
 
                 // HORA DA CAGADA
                 var pessoasGeral = await _SOAContext.TbCadPessoa.AsNoTracking().ToListAsync();
@@ -161,17 +99,18 @@ namespace Fichas.Controllers
                     var acp = pessoasGeral.Where(x => x.CodPessoa == item.CodAcampante).FirstOrDefault();
                     var resp = pessoasGeral.Where(x => x.CodPessoa == item.CodResponsavel).FirstOrDefault();
                     var ficharesp = acpGeral.Where(x => x.codPessoa == item.CodAcampante).FirstOrDefault();
-                    var Whats = AcampFicha.Where(x=>x.codPessoa == item.CodAcampante).FirstOrDefault();
-                    
-                    item.ExisteAcampante = Whats == null ? false:true;
+                    var Whats = AcampFicha.Where(x => x.codPessoa == item.CodAcampante).FirstOrDefault();
+
+                    item.ExisteAcampante = Whats == null ? false : true;
 
                     item.NomAcampante = acp.NomPessoa;
+                    item.DesPacote = ficharesp is null ? null : ficharesp.DesPacote;
                     item.FichaRespondida = ficharesp is null ? false : ficharesp.FichaRespondida;
                     item.FlgWhatsApp = item.ExisteAcampante == false ? false : Whats.FlgWhatsApp;
                     item.Telefone = tel.DesDdd + tel.NumTelefone;
                     item.NomResponsavel = resp.NomPessoa;
                 }
-                GridList = GridList.OrderBy(o => o.NomResponsavel).ToList();
+                GridList = GridList.OrderBy(o => o.DesPacote).ToList();
 
                 // FIM DA HORA DA CAGADA
 
@@ -269,7 +208,7 @@ namespace Fichas.Controllers
             return View(F);
         }
         [HttpPost]
-        public async Task<IActionResult> Ficha(Ficha Ficha,string respID , string acampID)
+        public async Task<IActionResult> Ficha(Ficha Ficha, string respID, string acampID)
         {
             //verifica se o acampante é dependente desse responsavel
             Acampante acamp = await _context.Acampante.Where(e => e.ID.ToString() == acampID).FirstOrDefaultAsync();
@@ -283,33 +222,49 @@ namespace Fichas.Controllers
 
             if (F == null)
             {
-                    Ficha.Responsavel = resp;
-                    Ficha.Acampante = acamp;
-                    Ficha.Acampante.FichaRespondida = true;
-                    Ficha.DatAtt = DateTime.Now;
-                    ViewBag.ok = "Ficha cadastrada com sucesso!";
-                    ViewBag.Dat = "Ultima alteração - "+Ficha.DatAtt.ToString("dd/MM/yyyy h:mm tt");
+                Ficha.Responsavel = resp;
+                Ficha.Acampante = acamp;
+                Ficha.Acampante.FichaRespondida = true;
+                Ficha.DatAtt = DateTime.Now;
+                ViewBag.ok = "Ficha cadastrada com sucesso!";
+                ViewBag.Dat = "Última alteração - " + Ficha.DatAtt.ToString("dd/MM/yyyy h:mm tt");
 
-                    _context.Ficha.Add(Ficha);
-            }else {
+                _context.Ficha.Add(Ficha);
+            } else {
                 Ficha.Responsavel = resp;
                 Ficha.Acampante = acamp;
                 Ficha.Acampante.FichaRespondida = true;
                 Ficha.DatAtt = DateTime.Now;
                 _context.Ficha.Add(Ficha);
                 _context.Ficha.Remove(F);
-                ViewBag.Dat = "Ultima alteração - " + Ficha.DatAtt.ToString("dd/MM/yyyy h:mm tt");
+                ViewBag.Dat = "Última alteração - " + Ficha.DatAtt.ToString("dd/MM/yyyy h:mm tt");
 
                 ViewBag.ok = "Ficha alterada com sucesso!";
             }
 
-            await _context.SaveChangesAsync();     
+            await _context.SaveChangesAsync();
+
+            await AtualizaDados(acamp);
+
             return View(Ficha);
         }
         public IActionResult Privacy()
         {
             return View();
         }
+        public async Task AtualizaDados(Acampante acamp) 
+        {
+            var fichaDat = await _SOAContext.TbCadPessoaficha.Where(e => e.CodPessoa.ToString() == acamp.codPessoa.ToString()).FirstOrDefaultAsync();
+            var IdAcampanteGeral = await _SOAContext.TbCadPessoaidacampante.Where(e=>e.CodPessoa.ToString() == acamp.codPessoa.ToString()).FirstOrDefaultAsync();
+            if(IdAcampanteGeral != null)
+            {
+                acamp.codAcampante = IdAcampanteGeral.CodPessoaidacampante.ToString();
+            }
+            acamp.DatNascto = fichaDat.DatNascto;
+            _context.Update(acamp);
+            await _context.SaveChangesAsync();
+
+        } 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

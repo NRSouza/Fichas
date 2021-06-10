@@ -1,0 +1,30 @@
+﻿@model List<Fichas.ViewModel.ImpressaoLote>;
+<style>
+    div #printArea {
+        display: inline-block;
+        width: 100%;
+        height: auto;
+    }
+</style>
+<div class="d-block d-print-block">
+    @foreach (var x in Model)
+    {
+
+        <div id="printArea">
+            <p id="inicio" class="text-justify" style="font-size:20px"><b>@x.Acampante.Nome - @x.Acampante.Equipe - @x.Acampante.codAcampante - @x.Acampante.DesPacote</b></p>
+            <br />
+            <p>De: <b>@x.Terceiro.Nome</b></p>
+            <p style="font-size:16px;">@x.Message.Msg</p>
+            <br />
+            <p>------------------------------------------------------------------------------</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        window.onload = function () {
+            window.print();
+        }
+    </script>
+}

@@ -103,6 +103,16 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6 align-self-center">
+                    @Html.CheckBoxFor(e => e.FreeKosher, new { @class = "form-check-label" })
+                    <label class="col-form-label-lg">Utilizará o serviço de comida WeDo Kosher (com custo adicional de R$ 750,00).</label>
+                </div>
+                <div class="form-group col-md-6 align-self-center">
+                    @Html.CheckBoxFor(e => e.WeDoKosher, new { @class = "form-check-label" })
+                    <label class="col-form-label-lg">Utilizará o serviço de comida Kosher NR (sem custo adicional).</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6 align-self-center">
                     @Html.CheckBoxFor(e => e.Diabetes, new { @class = "form-check-label" })
                     <label class="col-form-label-lg">Tem Diabetes Mellitus.</label>
                 </div>
@@ -214,7 +224,7 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Apresenta alergia ao uso de algum medicamento ou algum outro tipo de alergia? <b>Resposta obrigatória</b></label>
-                    @Html.DropDownListFor(e => e.Alergia_Medicamento, new SelectList(Enum.GetValues(typeof(Ficha.Talvez))), "Selecione", htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownListFor(e => e.Alergia_Medicamento, new SelectList(Enum.GetValues(typeof(Ficha.Selecione))), "Selecione", htmlAttributes: new { @class = "form-control" })
                 </div>
                 <div class="form-group col-md-6">
                     <label class="col-form-label-lg">Em caso positivo favor nos informar.</label>
@@ -314,7 +324,8 @@
             $('#Dat_Covid').mask('00/00/0000');
             $('#Dat_MenigiteC').mask('00/00/0000');
             let x = $('#confirmado').html();
-            if (x == 'Ficha alterada com sucesso!') {
+
+            if (x == 'Ficha alterada com sucesso!' || x == 'Ficha cadastrada com sucesso!') {
                 let win = window.open('https://mensageria.nr.com.br/', '_blank');
                 if (win) {
                     //Browser has allowed it to be opened

@@ -1,5 +1,4 @@
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Fichas.exe
-C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\css\Sasuke.jpg
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\css\site.css
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\favicon.ico
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\wwwroot\js\site.js
@@ -122,6 +121,9 @@ C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\P
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Fichas.dll
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Fichas.runtimeconfig.json
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Fichas.pdb
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\ClosedXML.dll
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\DocumentFormat.OpenXml.dll
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\ExcelNumberFormat.dll
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.Bcl.HashCode.dll
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\Microsoft.Data.SqlClient.dll
@@ -159,6 +161,7 @@ C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\P
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\System.Configuration.ConfigurationManager.dll
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\System.Diagnostics.DiagnosticSource.dll
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\System.IO.Packaging.dll
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\System.Runtime.Caching.dll
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\PubTmp\Out\System.Text.Json.dll

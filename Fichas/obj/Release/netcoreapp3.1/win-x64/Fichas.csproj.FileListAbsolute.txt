@@ -173,3 +173,11 @@ C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\F
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\Fichas.dll
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\Fichas.pdb
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\Fichas.genruntimeconfig.cache
+C:\Users\leuel\source\repos\FichasPRD\Fichas\bin\Release\netcoreapp3.1\win-x64\ClosedXML.dll
+C:\Users\leuel\source\repos\FichasPRD\Fichas\bin\Release\netcoreapp3.1\win-x64\DocumentFormat.OpenXml.dll
+C:\Users\leuel\source\repos\FichasPRD\Fichas\bin\Release\netcoreapp3.1\win-x64\ExcelNumberFormat.dll
+C:\Users\leuel\source\repos\FichasPRD\Fichas\bin\Release\netcoreapp3.1\win-x64\System.IO.Packaging.dll
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Backoffice\Importar.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Backoffice\SemAmigos.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Backoffice\ImpressaoLote1.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Backoffice\ImpressaoLote2.cshtml.g.cs

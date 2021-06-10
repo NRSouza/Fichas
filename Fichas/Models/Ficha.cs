@@ -56,6 +56,8 @@ namespace Fichas.Models
         public bool Enurese_Noturna { get; set; }
         public bool Sonambulismo { get; set; }
         public bool RestricaoAttFisica { get; set; }
+        public bool WeDoKosher { get; set; }
+        public bool FreeKosher { get; set; }
         public string Obs_RestricaoAttFisica { get; set; }
         [Required]
         public string Alergia_Medicamento { get; set; }
@@ -77,8 +79,8 @@ namespace Fichas.Models
         {
             [Description("Sim")]
             Sim,
-            [Description("Não sei")]
-            Não_sei
+            [Description("Não")]
+            Não
         }
         public enum Selecione
         {

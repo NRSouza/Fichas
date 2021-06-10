@@ -1,0 +1,50 @@
+﻿@model List<Acampante>;
+
+@{
+    ViewData["Title"] = "Acampantes sem Amigos";
+}
+<div>
+    <div class="text-center">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <div>
+        <a asp-action="AttDados" class="btn btn-info">Atualização dos Dados</a>
+        <a asp-action="Importar" class="btn btn-info" target="_blank">Importar excel</a>
+        <a asp-action="AcampantesLista" class="btn btn-info">Acampantes Geral</a>
+    </div>
+    <br />
+    <div class="container">
+        <div id="grid">
+            <div class="text-center">
+                <p>Lista de Acampantes cadastrados</p>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Responsável</th>
+                        <th scope="col">Acampante</th>
+                        <th scope="col" class="text-center">Equipe</th>
+                        <th scope="col" class="text-center">Pacote</th>
+                        <th scope="col" class="text-center">Cod. Acampante</th>
+                        <th scope="col" class="text-center">Unidade</th>
+                        <th scope="col" style="display:none">ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                    <tr>
+                        <td><b>@x.Responsavel</b></td>
+                        <td><b>@x.Nome</b></td>
+                        <td class="text-center"><b>@x.Equipe</b></td>
+                        <td><b>@x.DesPacote</b></td>
+                        <td class="text-center"><b>@x.codAcampante</b></td>
+                        <td class="text-center"><b>@x.Unidade</b></td>
+                        <td style="display:none">@x.ID</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
