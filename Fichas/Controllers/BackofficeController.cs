@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Fichas.SoaContext;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Fichas.Controllers
 {
@@ -65,10 +66,19 @@ namespace Fichas.Controllers
         public async Task<IActionResult> SemAmigos()
         {
             var AcampGeral = await _context.Acampante.AsNoTracking().ToListAsync();
-            List<Acampante> Alist = new List<Acampante>();
+            var RGeral = await _context.Responsavel.AsNoTracking().ToListAsync();
+            List<AcampanteSemAmigos> Alist = new List<AcampanteSemAmigos>();
             AcampGeral.ForEach(e => {
                 if (e.Amigos == null){
-                    Alist.Add(e);
+                    AcampanteSemAmigos acamp = new AcampanteSemAmigos() {
+                        codAcampante = e.codAcampante,
+                        DesPacote = e.DesPacote,
+                        Nome = e.Nome,
+                        Equipe = e.Equipe,
+                        Unidade = e.Unidade,
+                        Responsavel = e.Responsavel
+                    };
+                    Alist.Add(acamp);
                 }
             });
             Alist = Alist.OrderBy(x => x.Nome).ToList();

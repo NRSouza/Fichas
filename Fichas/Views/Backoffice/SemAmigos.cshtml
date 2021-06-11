@@ -1,4 +1,4 @@
-﻿@model List<Acampante>;
+﻿@model List<Fichas.ViewModel.AcampanteSemAmigos>;
 
 @{
     ViewData["Title"] = "Acampantes sem Amigos";
@@ -21,26 +21,24 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Responsável</th>
+                        @*<th scope="col">Responsável</th>*@
                         <th scope="col">Acampante</th>
                         <th scope="col" class="text-center">Equipe</th>
                         <th scope="col" class="text-center">Pacote</th>
                         <th scope="col" class="text-center">Cod. Acampante</th>
                         <th scope="col" class="text-center">Unidade</th>
-                        <th scope="col" style="display:none">ID</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var x in Model)
                     {
                     <tr>
-                        <td><b>@x.Responsavel</b></td>
+                        @*<td><b>@x.Responsavel</b></td>*@
                         <td><b>@x.Nome</b></td>
                         <td class="text-center"><b>@x.Equipe</b></td>
                         <td><b>@x.DesPacote</b></td>
                         <td class="text-center"><b>@x.codAcampante</b></td>
                         <td class="text-center"><b>@x.Unidade</b></td>
-                        <td style="display:none">@x.ID</td>
                     </tr>
                     }
                 </tbody>

@@ -321,3 +321,4 @@ C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\ImpressaoLote1.cshtml.g.cs
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\ImpressaoLote2.cshtml.g.cs
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\ImprimirIndividual.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Home\ImprimirLoteFicha.cshtml.g.cs

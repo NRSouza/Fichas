@@ -122,6 +122,20 @@ namespace Fichas.Controllers
             }
 
         }
+        public async Task<IActionResult> ImprimirLoteFicha()
+        {
+            List<Ficha> FichaGeral = await _context.Ficha.AsNoTracking().ToListAsync();
+            var AcampGeral = await _context.Ficha.AsNoTracking().ToListAsync();
+
+            foreach(var item in FichaGeral)
+            {
+                Acampante Acamp = _context.Ficha.Where(e => e.ID == item.ID).Select(i=>i.Acampante).FirstOrDefault();
+                item.Acampante = Acamp;
+            }
+
+            var F = FichaGeral.OrderBy(e => e.Acampante.Nome).ToList();
+            return View(F);
+        }
         [HttpGet]
         public async Task<IActionResult> Ficha(int CodResponsavel, int CodAcampante)
         {
