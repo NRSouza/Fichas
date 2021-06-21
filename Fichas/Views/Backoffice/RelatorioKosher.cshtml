@@ -1,0 +1,43 @@
+﻿@model List<Ficha>;
+
+@{
+    ViewData["Title"] = "Relatorio Kosher";
+}
+<div>
+    <div class="text-center">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <div>
+        <a asp-action="AcampantesLista" class="btn btn-info">Acampantes Geral</a>
+    </div>
+    <br />
+    <div class="container">
+        <div id="grid">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col" class="text-center">Equipe</th>
+                        <th scope="col" class="text-center">Pacote</th>
+                        <th scope="col" class="text-center">Cod. Acampante</th>
+                        <th scope="col" class="text-center">Free</th>
+                        <th scope="col" class="text-center">WeDo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td><b>@x.Acampante.Nome</b></td>
+                            <td class="text-center"><b>@x.Acampante.Equipe</b></td>
+                            <td class="text-center"><b>@x.Acampante.DesPacote</b></td>
+                            <td class="text-center"><b>@x.Acampante.codAcampante</b></td>
+                            <td class="text-center"><b>@if (x.FreeKosher){<span style="color:green">SIM</span>}else{<span style="color:red">NÃO</span>}</td>
+                            <td class="text-center"><b>@if (x.WeDoKosher){<span style="color:green">SIM</span>}else{<span style="color:red">NÃO</span>}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

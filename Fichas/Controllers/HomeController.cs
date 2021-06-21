@@ -59,6 +59,16 @@ namespace Fichas.Controllers
 
             return "ok";
         }
+        public async Task<IActionResult> ImprimirFichaIndividual(int CodResponsavel, int CodAcampante)
+        {
+            Responsavel R = await _context.Responsavel.Where(e => e.codResponsavel == CodResponsavel).FirstOrDefaultAsync();
+            Acampante A = await _context.Acampante.Where(e => e.codPessoa == CodAcampante).FirstOrDefaultAsync();
+            Ficha F = new Ficha();
+            F = await _context.Ficha.Where(e => e.Responsavel == R && e.Acampante == A).FirstOrDefaultAsync();
+
+            return View(F);
+
+        }
         [HttpGet]
         public async Task<IActionResult> Backoffice(string AuthToken)
         {

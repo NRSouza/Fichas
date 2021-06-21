@@ -37,10 +37,10 @@ namespace Fichas.Controllers
             if (A.Acampante.Nome != null)
             {
                 AList.ListAcampante = AList.ListAcampante.Where(e => e.Nome.ToUpper().Contains(A.Acampante.Nome.ToUpper())).ToList();
-            }else if (A.Acampante.codAcampante != null)
+            } else if (A.Acampante.codAcampante != null)
             {
                 AList.ListAcampante = AList.ListAcampante.Where(e => e.codAcampante == A.Acampante.codAcampante).ToList();
-            }else if (A.Acampante.Equipe != null)
+            } else if (A.Acampante.Equipe != null)
             {
                 AList.ListAcampante = AList.ListAcampante.Where(e => e.Equipe == A.Acampante.Equipe).ToList();
             }
@@ -63,27 +63,93 @@ namespace Fichas.Controllers
             }
             return View(AList);
         }
+        //public async Task<IActionResult> SemAmigos()
+        //{
+        //    var AcampGeral = await _context.Acampante.AsNoTracking().ToListAsync();
+        //    var RGeral = await _context.Responsavel.AsNoTracking().ToListAsync();
+        //    List<AcampanteSemAmigos> Alist = new List<AcampanteSemAmigos>();
+        //    AcampGeral.ForEach(e => {
+        //        if (e.Amigos == null){
+        //            AcampanteSemAmigos acamp = new AcampanteSemAmigos() {
+        //                codAcampante = e.codAcampante,
+        //                DesPacote = e.DesPacote,
+        //                Nome = e.Nome,
+        //                Equipe = e.Equipe,
+        //                Unidade = e.Unidade,
+        //                Responsavel = e.Responsavel
+        //            };
+        //            Alist.Add(acamp);
+        //        }
+        //    });
+        //    Alist = Alist.OrderBy(x => x.Nome).ToList();
+        //    return View(Alist);
+        //}
         public async Task<IActionResult> SemAmigos()
         {
+            var Alist = await _context.Acampante.AsNoTracking().ToListAsync();
             var AcampGeral = await _context.Acampante.AsNoTracking().ToListAsync();
-            var RGeral = await _context.Responsavel.AsNoTracking().ToListAsync();
-            List<AcampanteSemAmigos> Alist = new List<AcampanteSemAmigos>();
-            AcampGeral.ForEach(e => {
-                if (e.Amigos == null){
-                    AcampanteSemAmigos acamp = new AcampanteSemAmigos() {
-                        codAcampante = e.codAcampante,
-                        DesPacote = e.DesPacote,
-                        Nome = e.Nome,
-                        Equipe = e.Equipe,
-                        Unidade = e.Unidade,
-                        Responsavel = e.Responsavel
-                    };
-                    Alist.Add(acamp);
-                }
-            });
+            var AmigosGeral = await _context.Amigos.AsNoTracking().Select(e => e.Acampante).ToListAsync();
+            Alist.RemoveAll(x => AmigosGeral.Exists(y => y.codAcampante == x.codAcampante));
             Alist = Alist.OrderBy(x => x.Nome).ToList();
             return View(Alist);
         }
+        public async Task<IActionResult> RelatorioDramin()
+        {
+            List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.Dramin == true || e.Vonal == true).Select(e => e.Acampante).ToListAsync();
+            List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+            List<Ficha> Lista = new List<Ficha>();
+
+            foreach (var item in AcampantesAutorizados)
+            {
+                Lista.Add(new Ficha()
+                {
+                    Acampante = item,
+                    Vonal = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Vonal).FirstOrDefaultAsync(),
+                    Dramin = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Dramin).FirstOrDefaultAsync()
+                });
+            }
+
+            Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+            return View(Lista);
+        }
+        public async Task<IActionResult> RelatorioKosher()
+        {
+            List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.WeDoKosher == true || e.FreeKosher == true).Select(e => e.Acampante).ToListAsync();
+            List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+            List<Ficha> Lista = new List<Ficha>();
+
+            foreach (var item in AcampantesAutorizados)
+            {
+                Lista.Add(new Ficha()
+                {
+                    Acampante = item,
+                    WeDoKosher = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.WeDoKosher).FirstOrDefaultAsync(),
+                    FreeKosher = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.FreeKosher).FirstOrDefaultAsync()
+                });
+            }
+
+            Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+            return View(Lista);
+        }
+        public async Task<IActionResult> RelatorioBeliche()
+        {
+            List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.BelicheInferior == true).Select(e => e.Acampante).ToListAsync();
+            List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+            List<Ficha> Lista = new List<Ficha>();
+
+            foreach (var item in AcampantesAutorizados)
+            {
+                Lista.Add(new Ficha()
+                {
+                    Acampante = item,
+                    BelicheInferior = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.BelicheInferior).FirstOrDefaultAsync()
+                });
+            }
+
+            Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+            return View(Lista);
+        }
+        
         public async Task<IActionResult> AttDados()
         {
             var AcampanteGeral = await _context.Acampante.AsNoTracking().ToListAsync();

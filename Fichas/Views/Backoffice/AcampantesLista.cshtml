@@ -8,78 +8,83 @@
         <h1 class="display-4">@ViewData["Title"]</h1>
     </div>
     <div>
-        <a asp-action="AttDados" class="btn btn-info">Atualização dos Dados</a>
-        <a asp-action="Importar" class="btn btn-info" target="_blank">Importar excel</a>
-        <a asp-action="SemAmigos" class="btn btn-info">Acampantes sem amigos</a>
-        <a asp-action="ImpressaoLote1" class="btn btn-info">Impressão NR1</a>
-        <a asp-action="ImpressaoLote2" class="btn btn-info">Impressão NR2</a>
+        <a style="margin-bottom:15px;" asp-action="AttDados" class="btn btn-info">Atualização dos Dados</a>&nbsp;
+        <a style="margin-bottom:15px;" asp-action="Importar" class="btn btn-info" target="_blank">Importar excel</a>&nbsp;
+        <a style="margin-bottom:15px;" asp-action="SemAmigos" class="btn btn-info">Acampantes sem amigos</a>&nbsp;
+        <a style="margin-bottom:15px;" asp-action="ImpressaoLote1" class="btn btn-info">Impressão NR1</a>&nbsp;
+        <a style="margin-bottom:15px;" asp-action="ImpressaoLote2" class="btn btn-info">Impressão NR2</a>&nbsp;
+        <a style="margin-bottom:15px;" href="https://mensageria.nr.com.br/home/loginnr1" target="_blank" class="btn btn-info">Login NR1</a>&nbsp;
+        <a style="margin-bottom:15px;" href="https://mensageria.nr.com.br/home/loginnr2" target="_blank" class="btn btn-info">Login NR2</a>&nbsp;
+        <a style="margin-bottom:15px;" asp-action="RelatorioDramin" class="btn btn-info">Dramin Vonau</a>&nbsp;
+        <a style="margin-bottom:15px;" asp-action="RelatorioKosher" class="btn btn-info">Kosher</a>&nbsp;
+        <a style="margin-bottom:15px;" asp-action="RelatorioBeliche" class="btn btn-info">Beliche</a>&nbsp;
     </div>
-    <br />
-    <div class="text-center">
-        <p style="color:green">@ViewBag.RetornoTrue</p>
-    </div>
-    <br />
-    <div class="row" style="justify-content:center">
-        <form class="form-inline" method="post">
-            <div class="col-3">
-                <label class="justify-content-start"><b>Nome</b></label>
-                @Html.TextBoxFor(e => e.Acampante.Nome, new { @class = "form-control" })
-            </div>
-            <div class="col-3">
-                <label class="justify-content-start"><b>Código</b></label>
-                @Html.TextBoxFor(e => e.Acampante.codAcampante, new { @class = "form-control" })
-            </div>
-            <div class="col-3">
-                <label class="justify-content-start"><b>Equipe</b></label>
-                @Html.TextBoxFor(e => e.Acampante.Equipe, new { @class = "form-control" })
-            </div>
-            <div class="col-3">
-                <label class="justify-content-start"><b>Unidade</b></label>
-                @Html.TextBoxFor(e => e.Acampante.Unidade, new { @class = "form-control" })
-            </div>
-            <button type="submit" style="margin-top:10px; margin-left:50%;margin-right:50%" class="btn btn-primary">Buscar</button>
-        </form>
-    </div>
-    <br />
-    <div class="container">
-        <div id="grid">
-            <div class="text-center">
-                <p>Lista de Acampantes cadastrados</p>
-            </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Acampante</th>
-                        <th scope="col" class="text-center">Equipe</th>
-                        <th scope="col" class="text-center">Pacote</th>
-                        <th scope="col" class="text-center">Cod. Acampante</th>
-                        <th scope="col" class="text-center">Unidade</th>
-                        <th scope="col" class="text-center">Editar Equipe</th>
-                        <th scope="col" class="text-center">Visualizar</th>
-                        <th scope="col" style="display:none">ID</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var x in Model.ListAcampante)
+<br />
+<div class="text-center">
+    <p style="color:green">@ViewBag.RetornoTrue</p>
+</div>
+<br />
+<div class="row" style="justify-content:center">
+    <form class="form-inline" method="post">
+        <div class="col-3">
+            <label class="justify-content-start"><b>Nome</b></label>
+            @Html.TextBoxFor(e => e.Acampante.Nome, new { @class = "form-control" })
+        </div>
+        <div class="col-3">
+            <label class="justify-content-start"><b>Código</b></label>
+            @Html.TextBoxFor(e => e.Acampante.codAcampante, new { @class = "form-control" })
+        </div>
+        <div class="col-3">
+            <label class="justify-content-start"><b>Equipe</b></label>
+            @Html.TextBoxFor(e => e.Acampante.Equipe, new { @class = "form-control" })
+        </div>
+        <div class="col-3">
+            <label class="justify-content-start"><b>Unidade</b></label>
+            @Html.TextBoxFor(e => e.Acampante.Unidade, new { @class = "form-control" })
+        </div>
+        <button type="submit" style="margin-top:10px; margin-left:50%;margin-right:50%" class="btn btn-primary">Buscar</button>
+    </form>
+</div>
+<br />
+<div class="container">
+    <div id="grid">
+        <div class="text-center">
+            <p>Lista de Acampantes cadastrados</p>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Acampante</th>
+                    <th scope="col" class="text-center">Equipe</th>
+                    <th scope="col" class="text-center">Pacote</th>
+                    <th scope="col" class="text-center">Cod. Acampante</th>
+                    <th scope="col" class="text-center">Unidade</th>
+                    <th scope="col" class="text-center">Editar Equipe</th>
+                    <th scope="col" class="text-center">Visualizar</th>
+                    <th scope="col" style="display:none">ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model.ListAcampante)
                     {
-                        <tr>
-                            <td><b>@x.Nome</b></td>
-                            <td class="text-center"><b>@x.Equipe</b></td>
-                            <td><b>@x.DesPacote</b></td>
-                            <td class="text-center"><b>@x.codAcampante</b></td>
-                            <td class="text-center"><b>@x.Unidade</b></td>
-                            <td scope="col" class="text-center"><a asp-action="EditaEquipe" asp-route-AcampID="@x.ID" class="btn btn-info" target="_blank">Editar</a></td>
-                            <td class="text-center">
-                                @if (x.FlgImpressao == true)
+                <tr>
+                    <td><b>@x.Nome</b></td>
+                    <td class="text-center"><b>@x.Equipe</b></td>
+                    <td><b>@x.DesPacote</b></td>
+                    <td class="text-center"><b>@x.codAcampante</b></td>
+                    <td class="text-center"><b>@x.Unidade</b></td>
+                    <td scope="col" class="text-center"><a asp-action="EditaEquipe" asp-route-AcampID="@x.ID" class="btn btn-info" target="_blank">Editar</a></td>
+                    <td class="text-center">
+                        @if (x.FlgImpressao == true)
                                 {<a asp-action="MsgsAcampante" asp-route-Acamp="@x.ID" class="btn btn-info" target="_blank">Mensagens</a>}
                                 else
                                 { <p> </p>}
-                            </td>
-                            <td style="display:none">@x.ID</td>
-                        </tr>
+                    </td>
+                    <td style="display:none">@x.ID</td>
+                </tr>
                     }
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
+</div>
 </div>

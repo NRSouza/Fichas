@@ -219,3 +219,8 @@ C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Vie
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\SemAmigos.cshtml.g.cs
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\ImpressaoLote1.cshtml.g.cs
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\ImpressaoLote2.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\ImprimirIndividual.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Home\ImprimirLoteFicha.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\RelatorioBeliche.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\RelatorioDramin.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\RelatorioKosher.cshtml.g.cs

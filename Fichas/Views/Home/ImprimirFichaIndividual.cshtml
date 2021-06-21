@@ -1,0 +1,193 @@
+﻿@model Ficha;
+<style>
+    div #printArea {
+        display: inline-block;
+        width: 100%;
+        height: auto;
+    }
+</style>
+<div class="d-block d-print-block">
+        <div id="printArea">
+            <p id="inicio" class="text-justify" style="font-size:20px"><b>Nome:   @Model.Acampante.Nome</b></p>
+            <p class="text-justify"><b>Equipe:   @Model.Acampante.Equipe - Cod:   @Model.Acampante.codAcampante @Model.Acampante.DesPacote SEXO:    - Nasc:   @Model.Acampante.DatNascto </b></p>
+            <p style="font-size:18px;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Peso:  </b> @Model.Peso KG <br />
+                    </div>
+                    <div class="col-md-6">
+                        <b>Altura:  </b> @Model.Altura cm<br />
+                    </div>
+                </div>
+                <b>Ocorrencia Médica - ligar para:  </b> @Model.OcorrenciaMedica<br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Tipo sanguíneo:  </b> @Model.Tip_Sanguineo<br />
+                    </div>
+                    <div class="col-md-6">
+                        <b>Convênio:  </b> @Model.Convenio<br />
+                    </div>
+                </div>
+                <b>Contato pediatra:  </b> @Model.Nome_Pediatra_Contato<br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Sabe nadar ?:  </b> @if (Model.Nadar == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                    <div class="col-md-6">
+                        <b>Usar boia ?:  </b> @if (Model.Boia == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                </div>
+
+                <b>Acompanhamento psicológico ?:   </b>@if (Model.Acomp_Psicologico == true)
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Motivo :   </b> @Model.Motivo_Acomp_Psicologico<br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <b>Vacinas válidas ?:   </b>@if (Model.Vacinas_Validas == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                    <div class="col-md-4">
+                        <b>Alopatia ?:   </b>@if (Model.Alopatia == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                    <div class="col-md-4">
+                        <b>Homeopatia ?:   </b>@if (Model.Homeopatia == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-4">
+                        <b>H1N1 :   </b>@if (Model.H1N1 == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                    <div class="col-md-4">
+                        <b>Menigite C :   </b>@if (Model.MenigiteC == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                    <div class="col-md-4">
+                        <b>Covid :   </b>@if (Model.Covid == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Beliche inferior :   </b>@if (Model.BelicheInferior == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                    <div class="col-md-6">
+                        <b>Aparelho dental :   </b>@if (Model.Aparelho_Dental == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Dramin :   </b>@if (Model.Dramin == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                    <div class="col-md-6">
+                        <b>Vonal :   </b>@if (Model.Vonal == true)
+                        {<span>Sim</span> }
+                        else
+                        { <span>Não</span>}<br />
+                    </div>
+                </div>
+                <hr />
+                <b>Orientação Febre :   </b> @Model.Orientacao_Febre<br />
+                <b>Orientação Barriga :   </b> @Model.Orientacao_Barriga<br />
+                <b>Orientação Cabeça :   </b> @Model.Orientacao_Cabeca<br />
+                <b>Orientação Ouvido :   </b> @Model.Orientacao_Ouvido<br />
+                <b>Orientação Cólica :   </b> @Model.Orientacao_Colica<br />
+                <b>Orientação Garganta :   </b> @Model.Orientacao_Garganta<br />
+                <hr />
+                <b>Diabetes ? :   </b>@if (Model.Diabetes == true)
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Tratamento Diabetes ? :   </b> @Model.Tratamento_Diabetes<br />
+                <b>Convulsão ? :   </b>@if (Model.Convulsao == true)
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Tratamento Convulsão ? :   </b> @Model.Tratamento_Convulsao<br />
+                <b>Asma ? :   </b>@if (Model.Asma == true)
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Tratamento Asma ? :  </b> @Model.Tratamento_Asma<br />
+                <b>Bronquite ? :   </b>@if (Model.Bronquite == true)
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Tratamento Bronquite ? :  </b> @Model.Tratamento_Bronquite<br />
+                <b>Sonambulismo ? :   </b>@if (Model.Sonambulismo == true)
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Enurese noturna :   </b>@if (Model.Enurese_Noturna == true)
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Restrição atividade fisica:   </b>@if (Model.RestricaoAttFisica == true)
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Obs :  </b> @Model.Obs_RestricaoAttFisica<br />
+                <b>**Alergia:   </b>@if (Model.Alergia_Medicamento == "Sim")
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Obs :  </b> @Model.Obs_Alergia_Medicamento<br />
+                <b>Necessidade especial:   </b>@if (Model.Necessidade_Especial == "Sim")
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Obs :  </b> @Model.Obs_Necessidade_Especial<br />
+                <b>Restrição alimentar:   </b>@if (Model.Restricao_Alimentar == true)
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Obs :  </b> @Model.Obs_Restricao_Alimentar<br />
+                <b>Medo ou fobia:   </b>@if (Model.Medo_Fobia == true)
+                {<span>Sim</span> }
+                else
+                { <span>Não</span>}<br />
+                <b>Obs :  </b> @Model.Obs_Medo_Fobia<br />
+                <b>Observação Geral :  </b> @Model.Obs_Geral<br />
+            </p>
+        </div>
+</div>
+@section Scripts {
+    <script>
+        window.onload = function () {
+            window.print();
+        }
+    </script>
+}

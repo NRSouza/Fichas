@@ -42,6 +42,7 @@
                         <th scope="col">Acampante</th>
                         <th scope="col">Pacote</th>
                         <th scope="col">Ficha</th>
+                        <th scope="col">Imprimir</th>
                         <th scope="col">Msg Enviada?</th>
                         <th scope="col">Preenchida?</th>
                         <th scope="col">WhatsApp</th>
@@ -58,6 +59,12 @@
                             <td><b>@x.NomAcampante</b></td>
                             <td><b>@x.DesPacote</b></td>
                             <td><b><a asp-action="Ficha" asp-route-CodResponsavel="@x.CodResponsavel" asp-route-CodAcampante="@x.CodAcampante" target="_blank">FICHA</a></b></td>
+                            <td>
+                                @if (x.FichaRespondida)
+                                {<b><a asp-action="ImprimirFichaIndividual" asp-route-CodResponsavel="@x.CodResponsavel" asp-route-CodAcampante="@x.CodAcampante" target="_blank">Imprimir</a></b> }
+                                else
+                                { <span></span>}
+                            </td>
                             <td>@if (x.ExisteAcampante)
                             {<input type="checkbox" checked="@x.FlgWhatsApp" onclick="SaveWhats(event);" />}</td>
                             <td>
