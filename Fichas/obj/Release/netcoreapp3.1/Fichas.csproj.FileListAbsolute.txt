@@ -224,3 +224,9 @@ C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Vie
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\RelatorioBeliche.cshtml.g.cs
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\RelatorioDramin.cshtml.g.cs
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\RelatorioKosher.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Home\ImprimirFichaIndividual.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\RelatorioAlergia.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\RelatorioNecessidadesEspeciais.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Backoffice\RelatorioRestricaoAlimentar.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Home\SelecionaPacote.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Release\netcoreapp3.1\Razor\Views\Home\FichasPorPacote.cshtml.g.cs

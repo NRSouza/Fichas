@@ -1,0 +1,13 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div>
+        @foreach (var x in Model)
+        {
+            <a class="btn btn-info" asp-action="FichasPorPacote" target="_blank" asp-route-pacote="@x">@x</a>
+        }
+    </div>
+</div>

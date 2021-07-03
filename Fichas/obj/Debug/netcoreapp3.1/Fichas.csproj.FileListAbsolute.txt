@@ -326,3 +326,8 @@ C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\RelatorioKosher.cshtml.g.cs
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\RelatorioBeliche.cshtml.g.cs
 C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Home\ImprimirFichaIndividual.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\RelatorioRestricaoAlimentar.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\RelatorioAlergia.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Backoffice\RelatorioNecessidadesEspeciais.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Home\SelecionaPacote.cshtml.g.cs
+C:\Users\leuel\source\repos\FichasPRD\Fichas\obj\Debug\netcoreapp3.1\Razor\Views\Home\FichasPorPacote.cshtml.g.cs

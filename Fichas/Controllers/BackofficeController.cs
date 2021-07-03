@@ -9,6 +9,7 @@ using Fichas.Models;
 using Fichas.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using Fichas.SoaContext;
+using ClosedXML.Excel;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -51,7 +52,319 @@ namespace Fichas.Controllers
 
             return View(AList);
         }
-        [HttpGet]
+        public async Task<IActionResult> ExportarExcel(string tipoRelatorio)
+        {
+            if (tipoRelatorio == "Kosher")
+            {
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("RelatorioKosher");
+                    var currentRow = 1;
+
+                    // REGION HEADER
+                    worksheet.Cell(currentRow, 1).Value = "Nome";
+                    worksheet.Cell(currentRow, 2).Value = "Equipe";
+                    worksheet.Cell(currentRow, 3).Value = "Pacote";
+                    worksheet.Cell(currentRow, 4).Value = "Código";
+                    worksheet.Cell(currentRow, 5).Value = "Free";
+                    worksheet.Cell(currentRow, 6).Value = "WeDo";
+                    // END REGION
+
+                    List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.WeDoKosher == true || e.FreeKosher == true).Select(e => e.Acampante).ToListAsync();
+                    List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+                    List<Ficha> Lista = new List<Ficha>();
+
+                    foreach (var item in AcampantesAutorizados)
+                    {
+                        Lista.Add(new Ficha()
+                        {
+                            Acampante = item,
+                            WeDoKosher = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.WeDoKosher).FirstOrDefaultAsync(),
+                            FreeKosher = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.FreeKosher).FirstOrDefaultAsync()
+                        });
+                    }
+
+                    Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+                    foreach (var item in Lista)
+                    {
+                        currentRow++;
+
+                        worksheet.Cell(currentRow, 1).Value = item.Acampante.Nome;
+                        worksheet.Cell(currentRow, 2).Value = item.Acampante.Equipe;
+                        worksheet.Cell(currentRow, 3).Value = item.Acampante.DesPacote;
+                        worksheet.Cell(currentRow, 4).Value = item.Acampante.codAcampante;
+                        worksheet.Cell(currentRow, 5).Value = item.FreeKosher;
+                        worksheet.Cell(currentRow, 6).Value = item.WeDoKosher;
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        workbook.SaveAs(stream);
+                        var content = stream.ToArray();
+
+                        return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "RelatorioKosher.xlsx");
+                    }
+                }
+            }
+            else if (tipoRelatorio == "NecessidadesEspeciais")
+            {
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("RelatorioNecessidadeEspecial");
+                    var currentRow = 1;
+
+                    // REGION HEADER
+                    worksheet.Cell(currentRow, 1).Value = "Nome";
+                    worksheet.Cell(currentRow, 2).Value = "Equipe";
+                    worksheet.Cell(currentRow, 3).Value = "Pacote";
+                    worksheet.Cell(currentRow, 4).Value = "Código";
+                    worksheet.Cell(currentRow, 5).Value = "Necessidade Especial";
+                    worksheet.Cell(currentRow, 6).Value = "Obs Sobre";
+                    // END REGION
+                    List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.Necessidade_Especial == "Sim").Select(e => e.Acampante).ToListAsync();
+                    List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+                    List<Ficha> Lista = new List<Ficha>();
+
+                    foreach (var item in AcampantesAutorizados)
+                    {
+                        Lista.Add(new Ficha()
+                        {
+                            Acampante = item,
+                            Necessidade_Especial = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Necessidade_Especial).FirstOrDefaultAsync(),
+                            Obs_Necessidade_Especial = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Obs_Necessidade_Especial).FirstOrDefaultAsync()
+                        });
+                    }
+
+                    Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+                    foreach (var item in Lista)
+                    {
+                        currentRow++;
+
+                        worksheet.Cell(currentRow, 1).Value = item.Acampante.Nome;
+                        worksheet.Cell(currentRow, 2).Value = item.Acampante.Equipe;
+                        worksheet.Cell(currentRow, 3).Value = item.Acampante.DesPacote;
+                        worksheet.Cell(currentRow, 4).Value = item.Acampante.codAcampante;
+                        worksheet.Cell(currentRow, 5).Value = item.Necessidade_Especial;
+                        worksheet.Cell(currentRow, 6).Value = item.Obs_Necessidade_Especial;
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        workbook.SaveAs(stream);
+                        var content = stream.ToArray();
+
+                        return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "RelatorioNecessidadeEspecial.xlsx");
+                    }
+                }
+            }
+            else if (tipoRelatorio == "Alergia")
+            {
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("RelatorioAlergia");
+                    var currentRow = 1;
+
+                    // REGION HEADER
+                    worksheet.Cell(currentRow, 1).Value = "Nome";
+                    worksheet.Cell(currentRow, 2).Value = "Equipe";
+                    worksheet.Cell(currentRow, 3).Value = "Pacote";
+                    worksheet.Cell(currentRow, 4).Value = "Código";
+                    worksheet.Cell(currentRow, 5).Value = "Alergia";
+                    worksheet.Cell(currentRow, 6).Value = "Obs Sobre";
+                    // END REGION
+
+                    List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.Alergia_Medicamento == "Sim").Select(e => e.Acampante).ToListAsync();
+                    List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+                    List<Ficha> Lista = new List<Ficha>();
+
+                    foreach (var item in AcampantesAutorizados)
+                    {
+                        Lista.Add(new Ficha()
+                        {
+                            Acampante = item,
+                            Alergia_Medicamento = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Alergia_Medicamento).FirstOrDefaultAsync(),
+                            Obs_Alergia_Medicamento = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Obs_Alergia_Medicamento).FirstOrDefaultAsync()
+                        });
+                    }
+
+                    Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+                    foreach (var item in Lista)
+                    {
+                        currentRow++;
+
+                        worksheet.Cell(currentRow, 1).Value = item.Acampante.Nome;
+                        worksheet.Cell(currentRow, 2).Value = item.Acampante.Equipe;
+                        worksheet.Cell(currentRow, 3).Value = item.Acampante.DesPacote;
+                        worksheet.Cell(currentRow, 4).Value = item.Acampante.codAcampante;
+                        worksheet.Cell(currentRow, 5).Value = item.Alergia_Medicamento;
+                        worksheet.Cell(currentRow, 6).Value = item.Obs_Alergia_Medicamento;
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        workbook.SaveAs(stream);
+                        var content = stream.ToArray();
+
+                        return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "RelatorioAlergia.xlsx");
+                    }
+                }
+            }
+            else if (tipoRelatorio == "RestricaoAlimentar")
+            {
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("RelatorioRestricaoAlimentar");
+                    var currentRow = 1;
+
+                    // REGION HEADER
+                    worksheet.Cell(currentRow, 1).Value = "Nome";
+                    worksheet.Cell(currentRow, 2).Value = "Equipe";
+                    worksheet.Cell(currentRow, 3).Value = "Pacote";
+                    worksheet.Cell(currentRow, 4).Value = "Código";
+                    worksheet.Cell(currentRow, 5).Value = "Restrição Alimentar";
+                    worksheet.Cell(currentRow, 6).Value = "Obs sobre";
+                    // END REGION
+
+                    List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.Restricao_Alimentar == true).Select(e => e.Acampante).ToListAsync();
+                    List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+                    List<Ficha> Lista = new List<Ficha>();
+
+                    foreach (var item in AcampantesAutorizados)
+                    {
+                        Lista.Add(new Ficha()
+                        {
+                            Acampante = item,
+                            Restricao_Alimentar = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Restricao_Alimentar).FirstOrDefaultAsync(),
+                            Obs_Restricao_Alimentar = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Obs_Restricao_Alimentar).FirstOrDefaultAsync()
+                        });
+                    }
+
+                    Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+                    foreach (var item in Lista)
+                    {
+                        currentRow++;
+
+                        worksheet.Cell(currentRow, 1).Value = item.Acampante.Nome;
+                        worksheet.Cell(currentRow, 2).Value = item.Acampante.Equipe;
+                        worksheet.Cell(currentRow, 3).Value = item.Acampante.DesPacote;
+                        worksheet.Cell(currentRow, 4).Value = item.Acampante.codAcampante;
+                        worksheet.Cell(currentRow, 5).Value = item.Restricao_Alimentar;
+                        worksheet.Cell(currentRow, 6).Value = item.Obs_Restricao_Alimentar;
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        workbook.SaveAs(stream);
+                        var content = stream.ToArray();
+
+                        return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "RelatorioRestricaoAlimentar.xlsx");
+                    }
+                }
+            }
+            else if(tipoRelatorio == "Beliche")
+            {
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("RelatorioBeliche");
+                    var currentRow = 1;
+
+                    // REGION HEADER
+                    worksheet.Cell(currentRow, 1).Value = "Nome";
+                    worksheet.Cell(currentRow, 2).Value = "Equipe";
+                    worksheet.Cell(currentRow, 3).Value = "Pacote";
+                    worksheet.Cell(currentRow, 4).Value = "Código";
+                    worksheet.Cell(currentRow, 5).Value = "Beliche Inferior";
+                    // END REGION
+
+                    List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.BelicheInferior == true).Select(e => e.Acampante).ToListAsync();
+                    List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+                    List<Ficha> Lista = new List<Ficha>();
+
+                    foreach (var item in AcampantesAutorizados)
+                    {
+                        Lista.Add(new Ficha()
+                        {
+                            Acampante = item,
+                            BelicheInferior = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.BelicheInferior).FirstOrDefaultAsync()
+                        });
+                    }
+
+                    Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+                    foreach (var item in Lista)
+                    {
+                        currentRow++;
+
+                        worksheet.Cell(currentRow, 1).Value = item.Acampante.Nome;
+                        worksheet.Cell(currentRow, 2).Value = item.Acampante.Equipe;
+                        worksheet.Cell(currentRow, 3).Value = item.Acampante.DesPacote;
+                        worksheet.Cell(currentRow, 4).Value = item.Acampante.codAcampante;
+                        worksheet.Cell(currentRow, 5).Value = item.BelicheInferior;
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        workbook.SaveAs(stream);
+                        var content = stream.ToArray();
+
+                        return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "RelatorioBeliche.xlsx");
+                    }
+                }
+            }
+            else if (tipoRelatorio == "DraminVonau")
+            {
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("RelatorioDraminVonau");
+                    var currentRow = 1;
+
+                    // REGION HEADER
+                    worksheet.Cell(currentRow, 1).Value = "Nome";
+                    worksheet.Cell(currentRow, 2).Value = "Equipe";
+                    worksheet.Cell(currentRow, 3).Value = "Pacote";
+                    worksheet.Cell(currentRow, 4).Value = "Código";
+                    worksheet.Cell(currentRow, 5).Value = "Dramin";
+                    worksheet.Cell(currentRow, 6).Value = "Vonau";
+                    // END REGION
+
+                    List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.Dramin == true || e.Vonal == true).Select(e => e.Acampante).ToListAsync();
+                    List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+                    List<Ficha> Lista = new List<Ficha>();
+
+                    foreach (var item in AcampantesAutorizados)
+                    {
+                        Lista.Add(new Ficha()
+                        {
+                            Acampante = item,
+                            Vonal = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Vonal).FirstOrDefaultAsync(),
+                            Dramin = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Dramin).FirstOrDefaultAsync()
+                        });
+                    }
+
+                    Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+                    foreach (var item in Lista)
+                    {
+                        currentRow++;
+
+                        worksheet.Cell(currentRow, 1).Value = item.Acampante.Nome;
+                        worksheet.Cell(currentRow, 2).Value = item.Acampante.Equipe;
+                        worksheet.Cell(currentRow, 3).Value = item.Acampante.DesPacote;
+                        worksheet.Cell(currentRow, 4).Value = item.Acampante.codAcampante;
+                        worksheet.Cell(currentRow, 5).Value = item.Dramin;
+                        worksheet.Cell(currentRow, 6).Value = item.Vonal;
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        workbook.SaveAs(stream);
+                        var content = stream.ToArray();
+
+                        return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "RelatorioDraminVonau.xlsx");
+                    }
+                }
+            }
+            return RedirectToAction("AcampantesLista");
+        }
+            [HttpGet]
         public async Task<IActionResult> AcampantesLista(string? retorno)
         {
             AcampantesLista AList = new AcampantesLista();
@@ -112,6 +425,26 @@ namespace Fichas.Controllers
             Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
             return View(Lista);
         }
+        public async Task<IActionResult> RelatorioNecessidadesEspeciais()
+        {
+            List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.Necessidade_Especial == "Sim").Select(e => e.Acampante).ToListAsync();
+            List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+            List<Ficha> Lista = new List<Ficha>();
+
+            foreach (var item in AcampantesAutorizados)
+            {
+                Lista.Add(new Ficha()
+                {
+                    Acampante = item,
+                    Necessidade_Especial = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Necessidade_Especial).FirstOrDefaultAsync(),
+                    Obs_Necessidade_Especial = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Obs_Necessidade_Especial).FirstOrDefaultAsync()
+                });
+            }
+
+            Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+            return View(Lista);
+        }
+        
         public async Task<IActionResult> RelatorioKosher()
         {
             List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.WeDoKosher == true || e.FreeKosher == true).Select(e => e.Acampante).ToListAsync();
@@ -125,6 +458,44 @@ namespace Fichas.Controllers
                     Acampante = item,
                     WeDoKosher = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.WeDoKosher).FirstOrDefaultAsync(),
                     FreeKosher = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.FreeKosher).FirstOrDefaultAsync()
+                });
+            }
+
+            Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+            return View(Lista);
+        }
+        public async Task<IActionResult> RelatorioAlergia()
+        {
+            List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.Alergia_Medicamento == "Sim").Select(e => e.Acampante).ToListAsync();
+            List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+            List<Ficha> Lista = new List<Ficha>();
+
+            foreach (var item in AcampantesAutorizados)
+            {
+                Lista.Add(new Ficha()
+                {
+                    Acampante = item,
+                    Alergia_Medicamento = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Alergia_Medicamento).FirstOrDefaultAsync(),
+                    Obs_Alergia_Medicamento = await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Obs_Alergia_Medicamento).FirstOrDefaultAsync()
+                });
+            }
+
+            Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+            return View(Lista);
+        }
+        public async Task<IActionResult> RelatorioRestricaoAlimentar()
+        {
+            List<Acampante> AcampantesAutorizados = await _context.Ficha.Where(e => e.Restricao_Alimentar == true).Select(e => e.Acampante).ToListAsync();
+            List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+            List<Ficha> Lista = new List<Ficha>();
+
+            foreach (var item in AcampantesAutorizados)
+            {
+                Lista.Add(new Ficha()
+                {
+                    Acampante = item,
+                    Restricao_Alimentar= await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Restricao_Alimentar).FirstOrDefaultAsync(),
+                    Obs_Restricao_Alimentar= await _context.Ficha.Where(e => e.Acampante == item).Select(e => e.Obs_Restricao_Alimentar).FirstOrDefaultAsync()
                 });
             }
 

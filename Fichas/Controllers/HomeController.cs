@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Fichas.Models;
 using Fichas.ViewModel;
+using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
 using Fichas.SoaContext;
+using System.IO;
 
 namespace Fichas.Controllers
 {
@@ -68,6 +70,110 @@ namespace Fichas.Controllers
 
             return View(F);
 
+        }
+        public async Task<IActionResult> ExportarExcelFicha()
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("RelatorioFicha");
+                var currentRow = 1;
+
+                // REGION HEADER
+                worksheet.Cell(currentRow, 1).Value = "NomeResponsavel";
+                worksheet.Cell(currentRow, 2).Value = "NomeAcampante";
+                worksheet.Cell(currentRow, 3).Value = "Pacote";
+                worksheet.Cell(currentRow, 4).Value = "Msg Enviada?";
+                worksheet.Cell(currentRow, 5).Value = "Ficha Preenchida?";
+                worksheet.Cell(currentRow, 6).Value = "Celular";
+                // END REGION
+
+                var Pacotes = await _SOAContext.TbCadPacote.Where(e => e.FlgAtivo == "S").Select(e => e.CodPacote).ToListAsync();
+                var Reservas = await _SOAContext.TbCadPessoapapelreserva.Where(e => e.FlgStatus == "F").ToListAsync();
+                var ReservasAtivas = new List<TbCadPessoapapelreserva>();
+                var grid = new AcampanteResponsavel();
+                var GridList = new List<AcampanteResponsavel>();
+
+                Reservas.ForEach(e =>
+                {
+                    if (Pacotes.Contains(e.CodPacote))
+                    {
+                        ReservasAtivas.Add(e);
+
+                        AcampanteResponsavel ar = new AcampanteResponsavel
+                        {
+                            CodResponsavel = e.CodResponsavel,
+                            CodAcampante = e.CodPessoa,
+                        };
+
+                        GridList.Add(ar);
+                    }
+                });
+
+                // HORA DA CAGADA
+                var pessoasGeral = await _SOAContext.TbCadPessoa.AsNoTracking().ToListAsync();
+                var telefoneGeral = await _SOAContext.TbCadPessoafichatelefone.AsNoTracking().ToListAsync();
+                var AcampFicha = await _context.Acampante.AsNoTracking().ToListAsync();
+
+                //Acampante Acamp = await _context.Acampante.Where(e=>e.codPessoa == )
+                var acpGeral = await _context.Acampante.AsNoTracking().ToListAsync();
+                foreach (var item in GridList)
+                {
+                    var tel = telefoneGeral.Where(x => x.CodPessoa == item.CodResponsavel && x.CodTipotelefone == 1).FirstOrDefault();
+                    var acp = pessoasGeral.Where(x => x.CodPessoa == item.CodAcampante).FirstOrDefault();
+                    var resp = pessoasGeral.Where(x => x.CodPessoa == item.CodResponsavel).FirstOrDefault();
+                    var ficharesp = acpGeral.Where(x => x.codPessoa == item.CodAcampante).FirstOrDefault();
+                    var Whats = AcampFicha.Where(x => x.codPessoa == item.CodAcampante).FirstOrDefault();
+
+                    item.ExisteAcampante = Whats == null ? false : true;
+
+
+
+                    item.NomAcampante = acp.NomPessoa;
+                    item.DesPacote = ficharesp is null ? null : ficharesp.DesPacote;
+                    item.FichaRespondida = ficharesp is null ? false : ficharesp.FichaRespondida;
+                    item.FlgWhatsApp = item.ExisteAcampante == false ? false : Whats.FlgWhatsApp;
+                    item.Telefone = tel.DesDdd + tel.NumTelefone;
+                    item.NomResponsavel = resp.NomPessoa;
+                }
+                var Lista = GridList.OrderBy(o => o.NomAcampante).ToList();
+                foreach (var item in Lista)
+                {
+                    currentRow++;
+
+                    worksheet.Cell(currentRow, 1).Value = item.NomResponsavel;
+                    worksheet.Cell(currentRow, 2).Value = item.NomAcampante;
+                    worksheet.Cell(currentRow, 3).Value = item.DesPacote;
+                    worksheet.Cell(currentRow, 4).Value = item.FlgWhatsApp;
+                    worksheet.Cell(currentRow, 5).Value = item.FichaRespondida;
+                    worksheet.Cell(currentRow, 6).Value = item.Telefone;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "RelatorioFicha.xlsx");
+                }
+            }
+        }
+        public async Task<IActionResult> FichasPorPacote(string pacote)
+        {
+            List<Acampante> AcampantesAutorizados = await _context.Acampante.Where(e => e.DesPacote == pacote).ToListAsync();
+            List<Ficha> Fichas = await _context.Ficha.AsNoTracking().ToListAsync();
+            List<Ficha> Lista = new List<Ficha>();
+
+            foreach (var item in AcampantesAutorizados)
+            {
+                Ficha F =  await _context.Ficha.Where(e => e.Acampante.ID == item.ID).FirstOrDefaultAsync();
+                if(F != null) { 
+                    F.Acampante = item;
+                    Lista.Add(F);
+                }
+            }
+
+            Lista = Lista.OrderBy(x => x.Acampante.Nome).ToList();
+            return View(Lista);
         }
         [HttpGet]
         public async Task<IActionResult> Backoffice(string AuthToken)
@@ -131,6 +237,12 @@ namespace Fichas.Controllers
                 return Ok();
             }
 
+        }
+        public async Task<IActionResult> SelecionaPacote()
+        {
+            List<string> pacotes = await _context.Acampante.Where(e => e.DesPacote != null).Select(e=>e.DesPacote).Distinct().ToListAsync();
+
+            return View(pacotes);
         }
         public async Task<IActionResult> ImprimirLoteFicha()
         {

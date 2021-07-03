@@ -13,7 +13,8 @@
     </div>
     <div>
         <a asp-action="ImprimirLoteFicha" class="btn btn-info">Impressão em lote</a>
-
+        <a asp-action="SelecionaPacote" class="btn btn-info">Impressão por pacote</a>
+        <a asp-action="ExportarExcelFicha" class="btn btn-info">Exportar para excel</a>
     </div>
     <div class="container">
         <!--<form asp-action="Backoffice">
@@ -45,8 +46,9 @@
                         <th scope="col">Imprimir</th>
                         <th scope="col">Msg Enviada?</th>
                         <th scope="col">Preenchida?</th>
-                        <th scope="col">WhatsApp</th>
                         <th scope="col" style="display:none">ID</th>
+                        <th scope="col">WhatsApp</th>
+                        <th scope="col">Cel</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,19 +63,23 @@
                             <td><b><a asp-action="Ficha" asp-route-CodResponsavel="@x.CodResponsavel" asp-route-CodAcampante="@x.CodAcampante" target="_blank">FICHA</a></b></td>
                             <td>
                                 @if (x.FichaRespondida)
-                                {<b><a asp-action="ImprimirFichaIndividual" asp-route-CodResponsavel="@x.CodResponsavel" asp-route-CodAcampante="@x.CodAcampante" target="_blank">Imprimir</a></b> }
-                                else
-                                { <span></span>}
+                                    {<b><a asp-action="ImprimirFichaIndividual" asp-route-CodResponsavel="@x.CodResponsavel" asp-route-CodAcampante="@x.CodAcampante" target="_blank">Imprimir</a></b> }
+                                    else
+                                    { <span></span>}
                             </td>
-                            <td>@if (x.ExisteAcampante)
-                            {<input type="checkbox" checked="@x.FlgWhatsApp" onclick="SaveWhats(event);" />}</td>
+                            <td>
+                                @if (x.ExisteAcampante)
+                                {<input type="checkbox" checked="@x.FlgWhatsApp" onclick="SaveWhats(event);" />}
+                            </td>
                             <td>
                                 @if (x.FichaRespondida)
-                                {<b style="color:green">SIM</b> }
-                                else
-                                { <b style="color:red">NÃO</b>}
-                            <td><a href="https://api.whatsapp.com/send?phone=@telefone&text=https%3A%2F%2Ffichas.nrops.com.br%2F%3FCodResponsavel=@x.CodResponsavel%26CodAcampante=@x.CodAcampante" target="_blank">WhatsApp</a></td>
+                                        {<b style="color:green">SIM</b> }
+                                        else
+                                        { <b style="color:red">NÃO</b>}
+                            </td>
                             <td style="display:none">@x.CodAcampante</td>
+                            <td><a href="https://api.whatsapp.com/send?phone=@telefone&text=https%3A%2F%2Ffichas.nrops.com.br%2F%3FCodResponsavel=@x.CodResponsavel%26CodAcampante=@x.CodAcampante" target="_blank">WhatsApp</a></td>
+                            <td>@telefone</td>
                         </tr>
                     }
                 </tbody>

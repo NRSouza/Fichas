@@ -9,6 +9,7 @@
     </div>
     <div>
         <a asp-action="AcampantesLista" class="btn btn-info">Acampantes Geral</a>
+        <a asp-action="ExportarExcel" asp-route-tiporelatorio="Beliche" class="btn btn-info">Exportar</a>
     </div>
     <br />
     <div class="container">
@@ -31,7 +32,10 @@
                             <td class="text-center"><b>@x.Acampante.Equipe</b></td>
                             <td class="text-center"><b>@x.Acampante.DesPacote</b></td>
                             <td class="text-center"><b>@x.Acampante.codAcampante</b></td>
-                            <td class="text-center"><b>@if (x.BelicheInferior){<span style="color:green">SIM</span>}else{<span style="color:red">NÃO</span>}</td>
+                            <td class="text-center"><b>@if (x.BelicheInferior)
+                            {<span style="color:green">SIM</span>}
+                            else
+                            {<span style="color:red">NÃO</span>}</td>
                         </tr>
                     }
                 </tbody>
